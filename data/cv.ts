@@ -248,12 +248,12 @@ export const projects = [
   {
     id: 1,
     title: "Portfolio CV — Erick Franco",
-    description: "Ce site web — portfolio professionnel construit avec Next.js 15, Tailwind CSS et TypeScript. Tests E2E Playwright avec pattern POM, formulaire contact via Resend, déployé sur Vercel.",
-    tech: ["Next.js 15", "TypeScript", "Tailwind CSS", "Playwright", "Resend"],
+    description: "Ce site web — portfolio professionnel construit avec Next.js, Tailwind CSS et TypeScript. Tests E2E Playwright avec pattern POM, formulaire contact via Resend, déployé sur Vercel.",
+    tech: ["Next.js", "TypeScript", "Tailwind CSS", "Playwright", "Resend"],
     github: "https://github.com/gache/cv-portfolio",
-    demo: "#",
+    demo: "https://erickfranco.fr",
     image: "/projects/cv-portfolio.png",
-    featured: false,
+    featured: true,
   },
   {
     id: 1000,
@@ -266,15 +266,6 @@ export const projects = [
     featured: false,
   },
   {
-    id: 2,
-    title: "Application Spring Boot Hexagonale",
-    description: "Architecture hexagonale (ports & adapters) avec Spring Boot, tests unitaires et d'intégration, déploiement Docker.",
-    tech: ["Java", "Spring Boot", "Docker", "PostgreSQL", "JUnit"],
-    github: "#",
-    demo: "#",
-    image: "/projects/spring-hexagonal.png",
-  },
-  {
     id: 3,
     title: "Home Assistant Smart Home",
     description: "Automatisation domotique complète avec Home Assistant, intégrations IA pour des routines intelligentes.",
@@ -283,15 +274,6 @@ export const projects = [
     demo: "#",
     image: "/projects/home-assistant.png",
   },
-  {
-    id: 4,
-    title: "Apps IA Générative",
-    description: "Collection d'applications exploitant Claude et ChatGPT — agents autonomes, outils de productivité, automations.",
-    tech: ["Claude API", "Python", "LangChain", "FastAPI"],
-    github: "#",
-    demo: "#",
-    image: "/projects/ai-apps.png",
-  },
 ];
 
 export const certifications = [
@@ -299,26 +281,23 @@ export const certifications = [
   { name: "Generative & Agentic AI Foundation", issuer: "IBM", year: "2026" },
 ];
 
-export const blogPosts = [
+export const testimonials = [
   {
-    title: "Playwright vs Selenium en 2025 : mon retour d'expérience",
-    excerpt: "Après 2 ans avec Selenium et 1 an avec Playwright, voici pourquoi j'ai migré et ce que j'ai appris.",
-    tag: "QA Automation",
-    date: "Bientôt",
-    slug: "#",
+    name: "Marie L.",
+    role: "Tech Lead",
+    company: "Grand Compte — Bancaire",
+    text: "Erick est un collègue fiable et rigoureux. Sa maîtrise de l'automatisation des tests et sa capacité à s'adapter rapidement à nos environnements complexes ont été un vrai atout pour l'équipe.",
   },
   {
-    title: "Architecture hexagonale avec Spring Boot — guide pratique",
-    excerpt: "Implémenter les ports & adapters en Java, avec des exemples concrets tirés de projets bancaires.",
-    tag: "Spring Boot",
-    date: "Bientôt",
-    slug: "#",
+    name: "Thomas B.",
+    role: "Product Owner",
+    company: "Grand Compte — E-commerce",
+    text: "Erick a su traduire nos critères d'acceptation en tests automatisés pertinents. Sa communication proactive et son sens de la qualité nous ont permis de livrer en confiance.",
   },
   {
-    title: "Construire un agent IA avec Claude et LangChain",
-    excerpt: "De zéro à un agent opérationnel : outils, mémoire, et intégration dans un workflow existant.",
-    tag: "IA Générative",
-    date: "Bientôt",
-    slug: "#",
+    name: "Sophie M.",
+    role: "Développeuse Full Stack",
+    company: "Grand Compte — Retail",
+    text: "Travailler avec Erick, c'est avoir quelqu'un qui pense qualité dès le début du sprint. Ses retours sur les cas limites m'ont souvent évité des bugs en production.",
   },
 ];

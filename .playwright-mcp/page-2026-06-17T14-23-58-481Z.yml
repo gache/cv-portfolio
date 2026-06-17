@@ -1,0 +1,499 @@
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - navigation [ref=e4]:
+      - link "EF_" [ref=e5] [cursor=pointer]:
+        - /url: "#"
+      - list [ref=e6]:
+        - listitem [ref=e7]:
+          - link "À propos" [ref=e8] [cursor=pointer]:
+            - /url: "#apropos"
+        - listitem [ref=e9]:
+          - link "Expérience" [ref=e10] [cursor=pointer]:
+            - /url: "#experience"
+        - listitem [ref=e11]:
+          - link "Skills" [ref=e12] [cursor=pointer]:
+            - /url: "#skills"
+        - listitem [ref=e13]:
+          - link "Projets" [ref=e14] [cursor=pointer]:
+            - /url: "#projets"
+        - listitem [ref=e15]:
+          - link "Contact" [ref=e16] [cursor=pointer]:
+            - /url: "#contact"
+      - link "Télécharger CV" [ref=e17] [cursor=pointer]:
+        - /url: /cv-erick-franco.pdf
+    - generic [ref=e18]:
+      - generic [ref=e20]:
+        - generic [ref=e21]:
+          - generic [ref=e22]: Disponible pour de nouvelles missions
+          - heading "Erick Franco" [level=1] [ref=e24]:
+            - text: Erick
+            - text: Franco
+          - paragraph [ref=e613]: QA Automation Engineer
+          - paragraph [ref=e27]: Plus de 10 ans d'expérience en IT. Spécialisé en automatisation de tests, Java, Spring Boot, APIs REST, Playwright, IA Générative et développement Full Stack.
+          - generic [ref=e28]:
+            - link "Télécharger CV" [ref=e29] [cursor=pointer]:
+              - /url: /cv-erick-franco.pdf
+              - img [ref=e30]
+              - text: Télécharger CV
+            - link "Me contacter" [ref=e33] [cursor=pointer]:
+              - /url: "#contact"
+              - img [ref=e34]
+              - text: Me contacter
+            - link "Voir l'expérience" [ref=e37] [cursor=pointer]:
+              - /url: "#experience"
+              - text: Voir l'expérience
+              - img [ref=e38]
+        - generic [ref=e40]:
+          - generic [ref=e41]:
+            - generic [ref=e46]: qualification.test.ts
+            - generic [ref=e47]:
+              - generic [ref=e48]: $ running qualification suite...
+              - generic [ref=e49]: ✓ QA Automation Engineer
+              - generic [ref=e50]: ✓ Java Spring Boot Developer
+              - generic [ref=e51]: ✓ AI Enthusiast
+              - generic [ref=e53]: 3/3 passed · 10+ ans d'expérience
+          - generic [ref=e54]:
+            - generic [ref=e55]: UFT
+            - generic [ref=e56]: Playwright
+            - generic [ref=e57]: Spring Boot
+            - generic [ref=e58]: Angular
+            - generic [ref=e59]: Claude AI
+            - generic [ref=e60]: CI/CD
+      - link "Défiler vers le bas" [ref=e61] [cursor=pointer]:
+        - /url: "#apropos"
+        - img [ref=e62]
+    - generic [ref=e66]:
+      - generic [ref=e67]:
+        - generic [ref=e69]: 10+
+        - generic [ref=e70]: Ans d'expérience
+      - generic [ref=e71]:
+        - generic [ref=e73]: 20+
+        - generic [ref=e74]: Projets livrés
+      - generic [ref=e75]:
+        - generic [ref=e76]: "5"
+        - generic [ref=e77]: Certifications
+      - generic [ref=e78]:
+        - generic [ref=e80]: 30+
+        - generic [ref=e81]: Technologies
+    - generic [ref=e84]:
+      - generic [ref=e85]:
+        - paragraph [ref=e86]: À propos
+        - heading "Du support IT à l'IA — une trajectoire technique" [level=2] [ref=e87]
+        - paragraph [ref=e88]:
+          - text: "Consultant IT chez IBM depuis plusieurs années, j'ai forgé mon expertise dans des environnements exigeants : secteur bancaire, e-commerce, luxe et retail. Mon profil hybride"
+          - strong [ref=e89]: QA + Dev
+          - text: me permet de comprendre la qualité logicielle sous tous ses angles — de l'écriture du code à la validation de son comportement.
+        - paragraph [ref=e90]: Convaincu que la qualité n'est pas une phase mais une culture, je m'investis dans l'automatisation intelligente, les bonnes pratiques de testing et l'intégration de l'IA générative pour des workflows plus efficaces.
+        - generic [ref=e91]:
+          - generic [ref=e92]: ISTQB
+          - generic [ref=e93]: IBM Certified
+          - generic [ref=e94]: Agile / Scrum
+          - generic [ref=e95]: BDD
+          - generic [ref=e96]: CI/CD
+      - generic [ref=e97]:
+        - generic [ref=e98]:
+          - img [ref=e100]
+          - generic [ref=e102]:
+            - heading "Support IT & Infrastructure" [level=3] [ref=e103]
+            - paragraph [ref=e104]: Début de carrière dans le support technique et l'administration système — bases solides en IT.
+        - generic [ref=e105]:
+          - img [ref=e107]
+          - generic [ref=e111]:
+            - heading "Développement Full Stack" [level=3] [ref=e112]
+            - paragraph [ref=e113]: Évolution vers le développement Java/Spring Boot et Angular dans des contextes bancaires critiques.
+        - generic [ref=e114]:
+          - img [ref=e116]
+          - generic [ref=e118]:
+            - heading "QA Automation" [level=3] [ref=e119]
+            - paragraph [ref=e120]: Spécialisation en automatisation de tests — UFT, Playwright, Cucumber, BDD, contract testing.
+        - generic [ref=e121]:
+          - img [ref=e123]
+          - generic [ref=e131]:
+            - heading "Intelligence Artificielle" [level=3] [ref=e132]
+            - paragraph [ref=e133]: "Intégration de l'IA générative dans les workflows : prompt engineering, agents autonomes, IBM AI."
+        - generic [ref=e134]:
+          - img [ref=e136]
+          - generic [ref=e141]:
+            - heading "Apprentissage continu" [level=3] [ref=e142]
+            - paragraph [ref=e143]: Certifications, side projects, veille techno — toujours en mouvement.
+    - generic [ref=e145]:
+      - paragraph [ref=e146]: Expérience
+      - heading "Parcours professionnel" [level=2] [ref=e147]
+      - paragraph [ref=e148]: Expériences regroupées par employeur — missions ESN et engagements directs.
+      - generic [ref=e151]:
+        - generic [ref=e156]:
+          - button "IBM ESN · Consultant Actuel 2021 — Présent 6" [ref=e157] [cursor=pointer]:
+            - generic [ref=e158]:
+              - generic [ref=e159]: IBM
+              - generic [ref=e160]: ESN · Consultant
+              - generic [ref=e161]: Actuel
+            - generic [ref=e163]:
+              - generic [ref=e164]: 2021 — Présent
+              - generic [ref=e165]: "6"
+              - img [ref=e166]
+          - generic [ref=e168]:
+            - button "Testeur Automaticien QA Novembre 2024 — Présent · Grand Compte — Retail UFT Squash Jira +4" [ref=e170] [cursor=pointer]:
+              - generic [ref=e172]:
+                - paragraph [ref=e173]: Testeur Automaticien
+                - generic [ref=e174]:
+                  - generic [ref=e175]: QA
+                  - generic [ref=e176]: Novembre 2024 — Présent
+                  - generic [ref=e177]: ·
+                  - generic [ref=e178]: Grand Compte — Retail
+                - generic [ref=e179]:
+                  - generic [ref=e180]: UFT
+                  - generic [ref=e181]: Squash
+                  - generic [ref=e182]: Jira
+                  - generic [ref=e183]: "+4"
+              - img [ref=e184]
+            - button "Administrateur M3 Admin Juillet 2024 — Octobre 2024 · Grand Compte — Luxe Infor M3 Grid Infor OS Infor ION +1" [ref=e187] [cursor=pointer]:
+              - generic [ref=e189]:
+                - paragraph [ref=e190]: Administrateur M3
+                - generic [ref=e191]:
+                  - generic [ref=e192]: Admin
+                  - generic [ref=e193]: Juillet 2024 — Octobre 2024
+                  - generic [ref=e194]: ·
+                  - generic [ref=e195]: Grand Compte — Luxe
+                - generic [ref=e196]:
+                  - generic [ref=e197]: Infor M3 Grid
+                  - generic [ref=e198]: Infor OS
+                  - generic [ref=e199]: Infor ION
+                  - generic [ref=e200]: "+1"
+              - img [ref=e201]
+            - button "Développeur Full Stack — Build (Biban) Dev Mai 2024 — Juillet 2024 · Grand Compte — Bancaire Java 11 Spring Boot Angular 11 +5" [ref=e204] [cursor=pointer]:
+              - generic [ref=e206]:
+                - paragraph [ref=e207]: Développeur Full Stack — Build (Biban)
+                - generic [ref=e208]:
+                  - generic [ref=e209]: Dev
+                  - generic [ref=e210]: Mai 2024 — Juillet 2024
+                  - generic [ref=e211]: ·
+                  - generic [ref=e212]: Grand Compte — Bancaire
+                - generic [ref=e213]:
+                  - generic [ref=e214]: Java 11
+                  - generic [ref=e215]: Spring Boot
+                  - generic [ref=e216]: Angular 11
+                  - generic [ref=e217]: "+5"
+              - img [ref=e218]
+            - button "Développeur Full Stack — RUN (CLI) Dev Janvier 2023 — Mai 2024 · Grand Compte — Bancaire Java 11 Spring Boot Angular +5" [ref=e221] [cursor=pointer]:
+              - generic [ref=e223]:
+                - paragraph [ref=e224]: Développeur Full Stack — RUN (CLI)
+                - generic [ref=e225]:
+                  - generic [ref=e226]: Dev
+                  - generic [ref=e227]: Janvier 2023 — Mai 2024
+                  - generic [ref=e228]: ·
+                  - generic [ref=e229]: Grand Compte — Bancaire
+                - generic [ref=e230]:
+                  - generic [ref=e231]: Java 11
+                  - generic [ref=e232]: Spring Boot
+                  - generic [ref=e233]: Angular
+                  - generic [ref=e234]: "+5"
+              - img [ref=e235]
+            - button "Développeur Full Stack — Build (Succession) Dev Septembre 2022 — Janvier 2023 · Grand Compte — Bancaire Java 11 Spring Boot Angular 11 +5" [ref=e238] [cursor=pointer]:
+              - generic [ref=e240]:
+                - paragraph [ref=e241]: Développeur Full Stack — Build (Succession)
+                - generic [ref=e242]:
+                  - generic [ref=e243]: Dev
+                  - generic [ref=e244]: Septembre 2022 — Janvier 2023
+                  - generic [ref=e245]: ·
+                  - generic [ref=e246]: Grand Compte — Bancaire
+                - generic [ref=e247]:
+                  - generic [ref=e248]: Java 11
+                  - generic [ref=e249]: Spring Boot
+                  - generic [ref=e250]: Angular 11
+                  - generic [ref=e251]: "+5"
+              - img [ref=e252]
+            - button "Testeur Technico-Fonctionnel QA Juin 2021 — Septembre 2022 · Grand Compte — E-commerce Java 11 Spring Boot Kafka +8" [ref=e255] [cursor=pointer]:
+              - generic [ref=e257]:
+                - paragraph [ref=e258]: Testeur Technico-Fonctionnel
+                - generic [ref=e259]:
+                  - generic [ref=e260]: QA
+                  - generic [ref=e261]: Juin 2021 — Septembre 2022
+                  - generic [ref=e262]: ·
+                  - generic [ref=e263]: Grand Compte — E-commerce
+                - generic [ref=e264]:
+                  - generic [ref=e265]: Java 11
+                  - generic [ref=e266]: Spring Boot
+                  - generic [ref=e267]: Kafka
+                  - generic [ref=e268]: "+8"
+              - img [ref=e269]
+        - button "Auchan Retail Mission directe · Dev 2019 1" [ref=e276] [cursor=pointer]:
+          - generic [ref=e277]:
+            - generic [ref=e278]: Auchan Retail
+            - generic [ref=e279]: Mission directe · Dev
+          - generic [ref=e280]:
+            - generic [ref=e281]: "2019"
+            - generic [ref=e282]: "1"
+            - img [ref=e283]
+        - button "Modis ESN · Support IT 2017 — 2020 1" [ref=e290] [cursor=pointer]:
+          - generic [ref=e291]:
+            - generic [ref=e292]: Modis
+            - generic [ref=e293]: ESN · Support IT
+          - generic [ref=e294]:
+            - generic [ref=e295]: 2017 — 2020
+            - generic [ref=e296]: "1"
+            - img [ref=e297]
+        - button "TEJE Association 2012 — 2017 1" [ref=e304] [cursor=pointer]:
+          - generic [ref=e305]:
+            - generic [ref=e306]: TEJE
+            - generic [ref=e307]: Association
+          - generic [ref=e308]:
+            - generic [ref=e309]: 2012 — 2017
+            - generic [ref=e310]: "1"
+            - img [ref=e311]
+        - button "Oidhaco ONG · Mission internationale 2015 1" [ref=e318] [cursor=pointer]:
+          - generic [ref=e319]:
+            - generic [ref=e320]: Oidhaco
+            - generic [ref=e321]: ONG · Mission internationale
+          - generic [ref=e322]:
+            - generic [ref=e323]: "2015"
+            - generic [ref=e324]: "1"
+            - img [ref=e325]
+    - generic [ref=e328]:
+      - paragraph [ref=e329]: Compétences
+      - heading "Stack technique" [level=2] [ref=e330]
+      - paragraph [ref=e331]: Expertise construite sur des projets réels en environnements critiques.
+      - generic [ref=e332]:
+        - button "Test Automation" [ref=e333] [cursor=pointer]
+        - button "Backend" [ref=e334] [cursor=pointer]
+        - button "Frontend" [ref=e335] [cursor=pointer]
+        - button "DevOps & Outils" [ref=e336] [cursor=pointer]
+        - button "Intelligence Artificielle" [ref=e337] [cursor=pointer]
+      - generic [ref=e338]:
+        - generic [ref=e340]:
+          - generic [ref=e341]: Playwright
+          - generic [ref=e342]: 90%
+        - generic [ref=e345]:
+          - generic [ref=e346]: Selenium
+          - generic [ref=e347]: 85%
+        - generic [ref=e350]:
+          - generic [ref=e351]: UFT
+          - generic [ref=e352]: 88%
+        - generic [ref=e355]:
+          - generic [ref=e356]: Cucumber / BDD
+          - generic [ref=e357]: 85%
+        - generic [ref=e360]:
+          - generic [ref=e361]: Pact (Contract)
+          - generic [ref=e362]: 80%
+        - generic [ref=e365]:
+          - generic [ref=e366]: Postman / Newman
+          - generic [ref=e367]: 90%
+    - generic [ref=e370]:
+      - paragraph [ref=e371]: Certifications
+      - generic [ref=e372]:
+        - generic [ref=e373]:
+          - img [ref=e374]
+          - generic [ref=e377]:
+            - generic [ref=e378]: Claude 101
+            - generic [ref=e379]: Anthropic · 2026
+        - generic [ref=e380]:
+          - img [ref=e381]
+          - generic [ref=e384]:
+            - generic [ref=e385]: Generative & Agentic AI Foundation
+            - generic [ref=e386]: IBM · 2026
+    - generic [ref=e388]:
+      - paragraph [ref=e389]: Projets
+      - heading "Projets personnels" [level=2] [ref=e390]
+      - paragraph [ref=e391]: Side projects construits pour explorer de nouvelles technologies et résoudre de vrais problèmes.
+      - generic [ref=e392]:
+        - generic [ref=e393]:
+          - generic [ref=e394]:
+            - generic [ref=e396]: "{}"
+            - generic [ref=e397]: Live ↗
+            - generic [ref=e398]:
+              - link "GitHub" [ref=e399] [cursor=pointer]:
+                - /url: https://github.com/gache/claudeEnergia
+                - img [ref=e400]
+              - link "Demo" [ref=e402] [cursor=pointer]:
+                - /url: https://claude-energia.vercel.app
+                - img [ref=e403]
+          - generic [ref=e407]:
+            - heading "ClaudeEnergia — Dashboard HC/HP" [level=3] [ref=e408]
+            - paragraph [ref=e409]: Dashboard d'analyse énergétique Heures Creuses / Heures Pleines. Visualisation des coûts, graphiques interactifs et optimisation de consommation. Construit avec Claude Code et déployé sur Vercel.
+            - generic [ref=e410]:
+              - generic [ref=e411]: Next.js 14
+              - generic [ref=e412]: TypeScript
+              - generic [ref=e413]: Claude Code
+              - generic [ref=e414]: Vercel
+        - generic [ref=e415]:
+          - generic [ref=e416]:
+            - generic [ref=e418]: "{}"
+            - generic [ref=e419]: Live ↗
+            - generic [ref=e420]:
+              - link "GitHub" [ref=e421] [cursor=pointer]:
+                - /url: https://github.com/gache/cv-portfolio
+                - img [ref=e422]
+              - link "Demo" [ref=e424] [cursor=pointer]:
+                - /url: https://erickfranco.fr
+                - img [ref=e425]
+          - generic [ref=e429]:
+            - heading "Portfolio CV — Erick Franco" [level=3] [ref=e430]
+            - paragraph [ref=e431]: Ce site web — portfolio professionnel construit avec Next.js, Tailwind CSS et TypeScript. Tests E2E Playwright avec pattern POM, formulaire contact via Resend, déployé sur Vercel.
+            - generic [ref=e432]:
+              - generic [ref=e433]: Next.js
+              - generic [ref=e434]: TypeScript
+              - generic [ref=e435]: Tailwind CSS
+              - generic [ref=e436]: Playwright
+              - generic [ref=e437]: Resend
+        - generic [ref=e438]:
+          - generic [ref=e439]:
+            - generic [ref=e441]: "{}"
+            - generic [ref=e442]:
+              - link "GitHub" [ref=e443] [cursor=pointer]:
+                - /url: https://github.com/gache/playwright
+                - img [ref=e444]
+              - link "Demo" [ref=e446]:
+                - /url: "#"
+                - img [ref=e447]
+          - generic [ref=e451]:
+            - heading "Formation Playwright — Tests E2E" [level=3] [ref=e452]
+            - paragraph [ref=e453]: Projet réalisé dans le cadre d'une formation en automatisation de tests. Couverture end-to-end, gestion des sélecteurs, assertions avancées et bonnes pratiques QA avec Playwright.
+            - generic [ref=e454]:
+              - generic [ref=e455]: Playwright
+              - generic [ref=e456]: TypeScript
+              - generic [ref=e457]: QA Automation
+        - generic [ref=e458]:
+          - generic [ref=e459]:
+            - generic [ref=e461]: "{}"
+            - generic [ref=e462]:
+              - link "GitHub" [ref=e463]:
+                - /url: "#"
+                - img [ref=e464]
+              - link "Demo" [ref=e466]:
+                - /url: "#"
+                - img [ref=e467]
+          - generic [ref=e471]:
+            - heading "Home Assistant Smart Home" [level=3] [ref=e472]
+            - paragraph [ref=e473]: Automatisation domotique complète avec Home Assistant, intégrations IA pour des routines intelligentes.
+            - generic [ref=e474]:
+              - generic [ref=e475]: Home Assistant
+              - generic [ref=e476]: Python
+              - generic [ref=e477]: MQTT
+              - generic [ref=e478]: Node-RED
+    - generic [ref=e615]:
+      - paragraph [ref=e616]: Témoignages
+      - heading "Ce que disent mes collègues" [level=2] [ref=e617]
+      - paragraph [ref=e618]: Retours de collaborateurs avec qui j'ai travaillé sur des projets réels.
+      - generic [ref=e619]:
+        - generic [ref=e620]:
+          - generic [ref=e621]: “
+          - paragraph [ref=e622]: Erick est un collègue fiable et rigoureux. Sa maîtrise de l'automatisation des tests et sa capacité à s'adapter rapidement à nos environnements complexes ont été un vrai atout pour l'équipe.
+          - generic [ref=e623]:
+            - generic [ref=e625]: M
+            - generic [ref=e626]:
+              - paragraph [ref=e627]: Marie L.
+              - paragraph [ref=e628]: Tech Lead · Grand Compte — Bancaire
+        - generic [ref=e629]:
+          - generic [ref=e630]: “
+          - paragraph [ref=e631]: Erick a su traduire nos critères d'acceptation en tests automatisés pertinents. Sa communication proactive et son sens de la qualité nous ont permis de livrer en confiance.
+          - generic [ref=e632]:
+            - generic [ref=e634]: T
+            - generic [ref=e635]:
+              - paragraph [ref=e636]: Thomas B.
+              - paragraph [ref=e637]: Product Owner · Grand Compte — E-commerce
+        - generic [ref=e638]:
+          - generic [ref=e639]: “
+          - paragraph [ref=e640]: Travailler avec Erick, c'est avoir quelqu'un qui pense qualité dès le début du sprint. Ses retours sur les cas limites m'ont souvent évité des bugs en production.
+          - generic [ref=e641]:
+            - generic [ref=e643]: S
+            - generic [ref=e644]:
+              - paragraph [ref=e645]: Sophie M.
+              - paragraph [ref=e646]: Développeuse Full Stack · Grand Compte — Retail
+      - generic [ref=e647]:
+        - paragraph [ref=e648]: Vous avez travaillé avec moi ?
+        - button "Laisser un témoignage" [ref=e649] [cursor=pointer]
+    - generic [ref=e513]:
+      - paragraph [ref=e514]: Contact
+      - heading "Travaillons ensemble" [level=2] [ref=e515]
+      - paragraph [ref=e516]: Une opportunité, un projet, une question — je réponds sous 24h.
+      - generic [ref=e517]:
+        - generic [ref=e519]:
+          - generic [ref=e520]:
+            - generic [ref=e521]:
+              - generic [ref=e522]: Nom
+              - textbox "Jean Dupont" [ref=e523]
+            - generic [ref=e524]:
+              - generic [ref=e525]: Email
+              - textbox "jean@entreprise.fr" [ref=e526]
+          - generic [ref=e527]:
+            - generic [ref=e528]: Entreprise
+            - textbox "Nom de votre entreprise" [ref=e529]
+          - generic [ref=e530]:
+            - generic [ref=e531]: Message
+            - textbox "Décrivez votre besoin ou opportunité..." [ref=e532]
+          - button "Envoyer le message" [ref=e533] [cursor=pointer]:
+            - img [ref=e534]
+            - text: Envoyer le message
+        - generic [ref=e537]:
+          - generic [ref=e538]:
+            - paragraph [ref=e539]: Disponible pour des missions en ESN, des postes en CDI ou des freelances dans les domaines de la QA automatisation, du développement Java/Spring Boot ou de l'intégration IA.
+            - generic [ref=e540]:
+              - generic [ref=e541]: ●
+              - generic [ref=e542]:
+                - text: Basé à
+                - strong [ref=e543]: Lille, France
+            - generic [ref=e544]:
+              - generic [ref=e545]: ●
+              - generic [ref=e546]:
+                - text: Open à
+                - strong [ref=e547]: remote & hybride
+          - generic [ref=e548]:
+            - link "erickfrancodelgado@hotmail.com" [ref=e549] [cursor=pointer]:
+              - /url: mailto:erickfrancodelgado@hotmail.com
+              - img [ref=e551]
+              - text: erickfrancodelgado@hotmail.com
+            - link "LinkedIn — Erick Franco" [ref=e554] [cursor=pointer]:
+              - /url: https://www.linkedin.com/in/erick-franco-delgado-394a6228/
+              - img [ref=e556]
+              - text: LinkedIn — Erick Franco
+            - link "GitHub — @erickfranco" [ref=e558] [cursor=pointer]:
+              - /url: https://github.com/gache
+              - img [ref=e560]
+              - text: GitHub — @erickfranco
+    - generic [ref=e563]:
+      - generic [ref=e564]:
+        - generic [ref=e565]:
+          - paragraph [ref=e566]: EF_
+          - paragraph [ref=e567]: QA Automation Engineer & Java Spring Boot Developer — basé à Lille, France.
+          - generic [ref=e568]:
+            - link "GitHub" [ref=e569] [cursor=pointer]:
+              - /url: https://github.com/gache
+              - img [ref=e570]
+            - link "LinkedIn" [ref=e572] [cursor=pointer]:
+              - /url: https://www.linkedin.com/in/erick-franco-delgado-394a6228/
+              - img [ref=e573]
+            - link "Email" [ref=e575] [cursor=pointer]:
+              - /url: mailto:erickfrancodelgado@hotmail.com
+              - img [ref=e576]
+        - generic [ref=e579]:
+          - paragraph [ref=e580]: Navigation
+          - list [ref=e581]:
+            - listitem [ref=e582]:
+              - link "À propos" [ref=e583] [cursor=pointer]:
+                - /url: "#apropos"
+            - listitem [ref=e584]:
+              - link "Expérience" [ref=e585] [cursor=pointer]:
+                - /url: "#experience"
+            - listitem [ref=e586]:
+              - link "Skills" [ref=e587] [cursor=pointer]:
+                - /url: "#skills"
+            - listitem [ref=e588]:
+              - link "Projets" [ref=e589] [cursor=pointer]:
+                - /url: "#projets"
+            - listitem [ref=e590]:
+              - link "Contact" [ref=e591] [cursor=pointer]:
+                - /url: "#contact"
+        - generic [ref=e592]:
+          - paragraph [ref=e593]: Contact
+          - generic [ref=e594]:
+            - link "erickfrancodelgado@hotmail.com" [ref=e595] [cursor=pointer]:
+              - /url: mailto:erickfrancodelgado@hotmail.com
+              - img [ref=e596]
+              - text: erickfrancodelgado@hotmail.com
+            - link "LinkedIn" [ref=e599] [cursor=pointer]:
+              - /url: https://www.linkedin.com/in/erick-franco-delgado-394a6228/
+              - img [ref=e600]
+              - text: LinkedIn
+            - link "Télécharger CV" [ref=e602] [cursor=pointer]:
+              - /url: /cv-erick-franco.pdf
+      - paragraph [ref=e604]: © 2026 Erick Franco Delgado — Tous droits réservés
+  - alert [ref=e612]: Erick Franco
