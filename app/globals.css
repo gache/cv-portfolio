@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 :root {
-  --font-geist-sans: "Inter", system-ui, sans-serif;
-  --font-geist-mono: "JetBrains Mono", monospace;
+  --font-inter: "Inter", system-ui, sans-serif;
+  --font-jetbrains-mono: "JetBrains Mono", monospace;
 }
 
 * {
@@ -17,6 +17,11 @@ body {
   font-family: var(--font-geist-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+p {
+  text-align: justify;
+  hyphens: auto;
 }
 
 /* Custom scrollbar */

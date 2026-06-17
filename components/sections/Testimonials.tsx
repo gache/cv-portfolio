@@ -134,9 +134,9 @@ export default function Testimonials({ initialTestimonials }: { initialTestimoni
           </p>
 
           <div className="grid md:grid-cols-3 gap-6 mb-12">
-            {initialTestimonials.map((t) => (
+            {initialTestimonials.map((t, i) => (
               <div
-                key={t.name}
+                key={`${t.name}-${i}`}
                 className="rounded-xl border border-border/50 bg-surface p-6 flex flex-col gap-4 card-hover"
               >
                 <span className="text-3xl text-accent/40 font-serif leading-none select-none">&ldquo;</span>

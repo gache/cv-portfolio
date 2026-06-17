@@ -12,6 +12,7 @@ export default function AnimatedCounter({ value, suffix = "", duration = 2000 }:
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
   const started = useRef(false);
+  const rafId = useRef<number>(0);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -24,15 +25,21 @@ export default function AnimatedCounter({ value, suffix = "", duration = 2000 }:
             const progress = Math.min(elapsed / duration, 1);
             const eased = 1 - Math.pow(1 - progress, 3);
             setCount(Math.floor(eased * value));
-            if (progress < 1) requestAnimationFrame(tick);
+            if (progress < 1) {
+              rafId.current = requestAnimationFrame(tick);
+            }
           };
-          requestAnimationFrame(tick);
+          rafId.current = requestAnimationFrame(tick);
         }
       },
       { threshold: 0.5 }
     );
     if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
+    // Fix #7: cancel rAF on unmount to avoid setState on unmounted component
+    return () => {
+      observer.disconnect();
+      cancelAnimationFrame(rafId.current);
+    };
   }, [value, duration]);
 
   return (

@@ -1,6 +1,14 @@
 import { kv } from "@vercel/kv";
 import { NextRequest, NextResponse } from "next/server";
 
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const token = searchParams.get("token");
@@ -22,17 +30,23 @@ export async function GET(req: NextRequest) {
     });
   }
 
+  // Fix #10: escape name before HTML interpolation
+  const safeName = escapeHtml(testimonial.name);
+
   if (action === "approve") {
-    // Add to approved list
-    await kv.lpush("approved_testimonials", {
+    // Fix #2: atomic pipeline — lpush + del in one batch
+    const pipe = kv.pipeline();
+    pipe.lpush("approved_testimonials", {
       name: testimonial.name,
       role: testimonial.role,
       company: testimonial.company,
       text: testimonial.text,
     });
-    await kv.del(`pending:${token}`);
+    pipe.del(`pending:${token}`);
+    await pipe.exec();
+
     return new NextResponse(
-      html("✓ Approuvé !", `Le témoignage de <strong>${testimonial.name}</strong> est maintenant visible sur le site.`, "#4ADE80"),
+      html("✓ Approuvé !", `Le témoignage de <strong>${safeName}</strong> est maintenant visible sur le site.`, "#4ADE80"),
       { headers: { "Content-Type": "text/html" } }
     );
   }
@@ -40,7 +54,7 @@ export async function GET(req: NextRequest) {
   // Reject
   await kv.del(`pending:${token}`);
   return new NextResponse(
-    html("Rejeté", `Le témoignage de <strong>${testimonial.name}</strong> a été supprimé.`, "#a1a1aa"),
+    html("Rejeté", `Le témoignage de <strong>${safeName}</strong> a été supprimé.`, "#a1a1aa"),
     { headers: { "Content-Type": "text/html" } }
   );
 }
@@ -54,7 +68,7 @@ function html(title: string, message: string, color: string) {
     <div style="font-size:48px;margin-bottom:16px">${title.startsWith("✓") ? "✓" : title === "Rejeté" ? "✕" : "⚠"}</div>
     <h1 style="color:${color};margin-bottom:8px">${title}</h1>
     <p style="color:#a1a1aa;line-height:1.6">${message}</p>
-    <a href="https://erickfranco.fr" style="display:inline-block;margin-top:24px;padding:10px 20px;background:#818CF8;color:#000;text-decoration:none;border-radius:8px;font-weight:600">
+    <a href="https://cv-portfolio-dusky.vercel.app" style="display:inline-block;margin-top:24px;padding:10px 20px;background:#818CF8;color:#000;text-decoration:none;border-radius:8px;font-weight:600">
       Retour au site
     </a>
   </div>

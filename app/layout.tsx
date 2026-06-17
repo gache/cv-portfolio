@@ -1,10 +1,23 @@
 import type { Metadata } from "next";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains-mono",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Erick Franco — QA Automation Engineer & Java Spring Boot Developer",
   description:
-    "Plus de 10 ans d'expérience en IT. Spécialisé en automatisation de tests (Playwright, UFT, Selenium), Java Spring Boot, APIs REST et IA Générative. Basé à Lille, France.",
+    "Plus de 10 ans d'expérience en IT. Spécialisé en automatisation de tests (Playwright, UFT), Java Spring Boot, APIs REST et IA Générative. Basé à Lille, France.",
   keywords: [
     "QA Automation Engineer France",
     "Test Automation Engineer Lille",
@@ -36,15 +49,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fr" className="scroll-smooth">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
-          rel="stylesheet"
-        />
-      </head>
+    <html lang="fr" className={`scroll-smooth ${inter.variable} ${jetbrainsMono.variable}`}>
       <body className="bg-bg text-text-primary antialiased">{children}</body>
     </html>
   );

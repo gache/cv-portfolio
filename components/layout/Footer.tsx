@@ -1,111 +1,70 @@
 import { personal } from "@/data/cv";
-import { Mail } from "lucide-react";
+import { Mail, Download } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/ui/Icons";
-
-const navLinks = [
-  { href: "#apropos", label: "À propos" },
-  { href: "#experience", label: "Expérience" },
-  { href: "#skills", label: "Skills" },
-  { href: "#projets", label: "Projets" },
-  { href: "#contact", label: "Contact" },
-];
 
 export default function Footer() {
   return (
-    <footer className="border-t border-border/30 mt-24">
-      <div className="max-w-6xl mx-auto px-6 py-12">
-        {/* Top row */}
-        <div className="grid md:grid-cols-3 gap-10 mb-10">
-          {/* Brand */}
-          <div>
-            <p className="font-mono text-lg font-bold text-accent mb-2">EF_</p>
-            <p className="text-sm text-text-secondary leading-relaxed max-w-xs">
-              QA Automation Engineer & Java Spring Boot Developer — basé à Lille, France.
-            </p>
-            <div className="flex items-center gap-4 mt-4">
-              <a
-                href={personal.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted hover:text-accent transition-colors"
-                aria-label="GitHub"
-              >
-                <GithubIcon size={18} />
-              </a>
-              <a
-                href={personal.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted hover:text-accent transition-colors"
-                aria-label="LinkedIn"
-              >
-                <LinkedinIcon size={18} />
-              </a>
-              <a
-                href={`mailto:${personal.email}`}
-                className="text-muted hover:text-accent transition-colors"
-                aria-label="Email"
-              >
-                <Mail size={17} />
-              </a>
-            </div>
+    <footer className="mt-24 border-t border-border/30">
+      {/* Main bar */}
+      <div className="max-w-6xl mx-auto px-6 py-8">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+
+          {/* Left — terminal identity */}
+          <div className="flex items-center gap-3">
+            <span className="font-mono text-xl font-bold text-accent">EF</span>
+            <span className="cursor-blink font-mono text-xl text-accent">_</span>
+            <span className="hidden sm:block w-px h-5 bg-border/60 mx-1" />
+            <span className="hidden sm:flex items-center gap-1.5 text-xs font-mono text-muted">
+              <span className="w-1.5 h-1.5 rounded-full bg-pass animate-pulse" />
+              Disponible · Lille, France · Remote OK
+            </span>
           </div>
 
-          {/* Navigation */}
-          <div>
-            <p className="text-xs font-mono text-muted uppercase tracking-widest mb-4">Navigation</p>
-            <ul className="space-y-2">
-              {navLinks.map((l) => (
-                <li key={l.href}>
-                  <a
-                    href={l.href}
-                    className="text-sm text-text-secondary hover:text-accent transition-colors"
-                  >
-                    {l.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Contact */}
-          <div>
-            <p className="text-xs font-mono text-muted uppercase tracking-widest mb-4">Contact</p>
-            <div className="space-y-2">
-              <a
-                href={`mailto:${personal.email}`}
-                className="flex items-center gap-2 text-sm text-text-secondary hover:text-accent transition-colors"
-              >
-                <Mail size={14} />
-                {personal.email}
-              </a>
-              <a
-                href={personal.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 text-sm text-text-secondary hover:text-accent transition-colors"
-              >
-                <LinkedinIcon size={14} />
-                LinkedIn
-              </a>
-              <a
-                href={personal.cvUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 mt-2 px-3 py-1.5 rounded-md text-xs font-mono bg-accent/10 text-accent border border-accent/30 hover:bg-accent/20 transition-colors"
-              >
-                Télécharger CV
-              </a>
-            </div>
+          {/* Right — actions */}
+          <div className="flex items-center gap-3">
+            <a
+              href={personal.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub"
+              className="w-9 h-9 rounded-lg border border-border/50 flex items-center justify-center text-muted hover:text-accent hover:border-accent/40 transition-all"
+            >
+              <GithubIcon size={16} />
+            </a>
+            <a
+              href={personal.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+              className="w-9 h-9 rounded-lg border border-border/50 flex items-center justify-center text-muted hover:text-accent hover:border-accent/40 transition-all"
+            >
+              <LinkedinIcon size={16} />
+            </a>
+            <a
+              href={`mailto:${personal.email}`}
+              aria-label="Email"
+              className="w-9 h-9 rounded-lg border border-border/50 flex items-center justify-center text-muted hover:text-accent hover:border-accent/40 transition-all"
+            >
+              <Mail size={16} />
+            </a>
+            <a
+              href={personal.cvUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-accent text-bg text-xs font-mono font-semibold hover:bg-accent/90 transition-colors ml-1"
+            >
+              <Download size={13} />
+              CV
+            </a>
           </div>
         </div>
+      </div>
 
-        {/* Bottom row */}
-        <div className="pt-6 border-t border-border/20 flex justify-center">
-          <p className="text-xs text-muted font-mono">
-            © {new Date().getFullYear()} Erick Franco Delgado — Tous droits réservés
-          </p>
-        </div>
+      {/* Copyright bar */}
+      <div className="border-t border-border/20 py-4">
+        <p className="text-center text-xs font-mono text-muted/60">
+          © {new Date().getFullYear()} Erick Franco Delgado — Tous droits réservés
+        </p>
       </div>
     </footer>
   );

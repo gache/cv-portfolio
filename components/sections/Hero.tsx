@@ -38,7 +38,7 @@ export default function Hero() {
       <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-96 h-96 bg-accent/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute top-1/3 right-1/4 w-64 h-64 bg-accent-dark/5 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="max-w-6xl mx-auto px-6 py-32 w-full">
+      <div className="max-w-6xl mx-auto px-6 py-16 md:py-24 lg:py-32 w-full">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Left — text */}
           <div className="animate-fade-up">

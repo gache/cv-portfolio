@@ -201,7 +201,6 @@ export const experiences = [
 export const skills = {
   "Test Automation": [
     { name: "Playwright", level: 90 },
-    { name: "Selenium", level: 85 },
     { name: "UFT", level: 88 },
     { name: "Cucumber / BDD", level: 85 },
     { name: "Pact (Contract)", level: 80 },
@@ -216,7 +215,6 @@ export const skills = {
   ],
   "Frontend": [
     { name: "Angular", level: 80 },
-    { name: "React / Next.js", level: 70 },
     { name: "TypeScript", level: 78 },
   ],
   "DevOps & Outils": [
@@ -229,7 +227,6 @@ export const skills = {
   "Intelligence Artificielle": [
     { name: "Prompt Engineering", level: 88 },
     { name: "Claude / ChatGPT", level: 85 },
-    { name: "Agentic AI", level: 75 },
     { name: "IBM Consulting Advantage", level: 80 },
   ],
 };

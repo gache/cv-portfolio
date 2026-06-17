@@ -20,8 +20,8 @@ const config: Config = {
         pass: "#4ADE80",
       },
       fontFamily: {
-        sans: ["var(--font-geist-sans)", "Inter", "system-ui", "sans-serif"],
-        mono: ["var(--font-geist-mono)", "JetBrains Mono", "monospace"],
+        sans: ["var(--font-inter)", "Inter", "system-ui", "sans-serif"],
+        mono: ["var(--font-jetbrains-mono)", "JetBrains Mono", "monospace"],
       },
       animation: {
         "fade-up": "fadeUp 0.6s ease forwards",

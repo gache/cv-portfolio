@@ -14,7 +14,16 @@ export default async function TestimonialsServer() {
     // KV not available — fallback to static only
   }
 
-  const all = [...staticTestimonials, ...kvTestimonials];
+  // Fix #6: deduplicate by name+text — KV-approved takes precedence over static
+  const seen = new Set<string>();
+  const all: Testimonial[] = [];
+  for (const t of [...kvTestimonials, ...staticTestimonials]) {
+    const key = `${t.name}::${t.text}`;
+    if (!seen.has(key)) {
+      seen.add(key);
+      all.push(t);
+    }
+  }
 
   return <TestimonialsClient initialTestimonials={all} />;
 }

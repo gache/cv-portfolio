@@ -162,7 +162,9 @@ function EmployerCard({
 
 export default function Experience() {
   const allGroups = groupByEmployer(experiences);
-  const [openExp, setOpenExp] = useState<number | null>(null);
+  // Fix #4: separate state per layout to avoid invisible duplicate interactions
+  const [openExpDesktop, setOpenExpDesktop] = useState<number | null>(null);
+  const [openExpMobile, setOpenExpMobile] = useState<number | null>(null);
 
   const allGroupsList = [...TECH_EMPLOYERS, ...OTHER_EMPLOYERS]
     .map((e) => [e, allGroups.get(e)] as [string, typeof experiences])
@@ -196,30 +198,27 @@ export default function Experience() {
                     }`} />
                   </div>
 
-                  <div className={isLeft ? "" : "invisible pointer-events-none"}>
-                    {isLeft && (
-                      <EmployerCard
-                        employer={employer}
-                        exps={exps}
-                        openExp={openExp}
-                        setOpenExp={setOpenExp}
-                        defaultOpen={isIBM}
-                        prominent={isIBM}
-                      />
-                    )}
-                  </div>
-                  <div className={!isLeft ? "" : "invisible pointer-events-none"}>
-                    {!isLeft && (
-                      <EmployerCard
-                        employer={employer}
-                        exps={exps}
-                        openExp={openExp}
-                        setOpenExp={setOpenExp}
-                        defaultOpen={false}
-                        prominent={false}
-                      />
-                    )}
-                  </div>
+                  {/* Fix #5: empty div for unused slot — avoid mounting card twice */}
+                  {isLeft ? (
+                    <EmployerCard
+                      employer={employer}
+                      exps={exps}
+                      openExp={openExpDesktop}
+                      setOpenExp={setOpenExpDesktop}
+                      defaultOpen={isIBM}
+                      prominent={isIBM}
+                    />
+                  ) : <div />}
+                  {!isLeft ? (
+                    <EmployerCard
+                      employer={employer}
+                      exps={exps}
+                      openExp={openExpDesktop}
+                      setOpenExp={setOpenExpDesktop}
+                      defaultOpen={false}
+                      prominent={false}
+                    />
+                  ) : <div />}
                 </div>
               );
             })}
@@ -238,8 +237,8 @@ export default function Experience() {
                   <EmployerCard
                     employer={employer}
                     exps={exps}
-                    openExp={openExp}
-                    setOpenExp={setOpenExp}
+                    openExp={openExpMobile}
+                    setOpenExp={setOpenExpMobile}
                     defaultOpen={isIBM}
                     prominent={isIBM}
                   />
