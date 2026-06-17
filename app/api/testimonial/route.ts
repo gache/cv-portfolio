@@ -19,7 +19,8 @@ export async function POST(req: NextRequest) {
     // Save as pending in KV
     await kv.set(`pending:${token}`, testimonial, { ex: 60 * 60 * 24 * 30 }); // 30 days
 
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "https://erickfranco.fr";
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+      ?? (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
     const approveUrl = `${baseUrl}/api/moderation?token=${token}&action=approve`;
     const rejectUrl = `${baseUrl}/api/moderation?token=${token}&action=reject`;
 
