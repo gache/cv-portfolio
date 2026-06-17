@@ -281,6 +281,8 @@ export const certifications = [
   { name: "Generative & Agentic AI Foundation", issuer: "IBM", year: "2026" },
 ];
 
+export const blogPosts: never[] = [];
+
 export const testimonials = [
   {
     name: "Marie L.",
