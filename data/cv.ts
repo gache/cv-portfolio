@@ -247,6 +247,16 @@ export const projects = [
   },
   {
     id: 1,
+    title: "Portfolio CV — Erick Franco",
+    description: "Ce site web — portfolio professionnel construit avec Next.js 15, Tailwind CSS et TypeScript. Tests E2E Playwright avec pattern POM, formulaire contact via Resend, déployé sur Vercel.",
+    tech: ["Next.js 15", "TypeScript", "Tailwind CSS", "Playwright", "Resend"],
+    github: "https://github.com/gache/cv-portfolio",
+    demo: "#",
+    image: "/projects/cv-portfolio.png",
+    featured: false,
+  },
+  {
+    id: 1000,
     title: "Formation Playwright — Tests E2E",
     description: "Projet réalisé dans le cadre d'une formation en automatisation de tests. Couverture end-to-end, gestion des sélecteurs, assertions avancées et bonnes pratiques QA avec Playwright.",
     tech: ["Playwright", "TypeScript", "QA Automation"],
