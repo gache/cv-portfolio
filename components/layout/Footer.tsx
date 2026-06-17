@@ -1,8 +1,13 @@
+"use client";
+
 import { personal } from "@/data/cv";
 import { Mail, Download } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/ui/Icons";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Footer() {
+  const { t } = useLanguage();
+
   return (
     <footer className="mt-24 border-t border-border/30">
       {/* Main bar */}
@@ -16,7 +21,7 @@ export default function Footer() {
             <span className="hidden sm:block w-px h-5 bg-border/60 mx-1" />
             <span className="hidden sm:flex items-center gap-1.5 text-xs font-mono text-muted">
               <span className="w-1.5 h-1.5 rounded-full bg-pass animate-pulse" />
-              Disponible · Lille, France · Remote OK
+              {t.footer.available}
             </span>
           </div>
 
@@ -63,7 +68,7 @@ export default function Footer() {
       {/* Copyright bar */}
       <div className="border-t border-border/20 py-4">
         <p className="text-center text-xs font-mono text-muted/60">
-          © {new Date().getFullYear()} Erick Franco Delgado — Tous droits réservés
+          © {new Date().getFullYear()} Erick Franco Delgado — {t.footer.rights}
         </p>
       </div>
     </footer>

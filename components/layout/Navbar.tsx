@@ -2,22 +2,43 @@
 
 import { useState, useEffect } from "react";
 import { personal } from "@/data/cv";
-
-const links = [
-  { href: "#apropos", label: "À propos" },
-  { href: "#experience", label: "Expérience" },
-  { href: "#skills", label: "Skills" },
-  { href: "#projets", label: "Projets" },
-  { href: "#contact", label: "Contact" },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
+import type { Lang } from "@/lib/i18n/translations";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
+  const { lang, setLang, t } = useLanguage();
+
+  const links = [
+    { href: "#apropos", label: t.nav.about },
+    { href: "#experience", label: t.nav.experience },
+    { href: "#skills", label: t.nav.skills },
+    { href: "#projets", label: t.nav.projects },
+    { href: "#contact", label: t.nav.contact },
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const sectionIds = ["apropos", "experience", "skills", "projets", "contact"];
+    const onScroll = () => {
+      const threshold = 80;
+      let current = "";
+      for (const id of sectionIds) {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top <= threshold) {
+          current = id;
+        }
+      }
+      setActiveSection(current);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
@@ -40,7 +61,7 @@ export default function Navbar() {
             <li key={l.href}>
               <a
                 href={l.href}
-                className="text-sm text-text-secondary hover:text-text-primary transition-colors duration-200"
+                className={`text-sm transition-colors duration-200 ${activeSection && l.href === '#' + activeSection ? 'text-accent font-semibold' : 'text-text-secondary hover:text-text-primary'}`}
               >
                 {l.label}
               </a>
@@ -48,14 +69,32 @@ export default function Navbar() {
           ))}
         </ul>
 
-        <a
-          href={personal.cvUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hidden md:inline-flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium bg-accent/10 text-accent border border-accent/30 hover:bg-accent/20 transition-all duration-200"
-        >
-          Télécharger CV
-        </a>
+        <div className="hidden md:flex items-center gap-2">
+          <div className="flex items-center gap-0.5 font-mono text-xs">
+            {(["fr", "en", "es"] as Lang[]).map((l) => (
+              <button
+                key={l}
+                onClick={() => setLang(l)}
+                className={`px-1.5 py-1 rounded transition-colors uppercase ${
+                  lang === l
+                    ? "text-accent font-semibold"
+                    : "text-muted hover:text-text-secondary"
+                }`}
+              >
+                {l}
+              </button>
+            ))}
+          </div>
+          <span className="w-px h-4 bg-border/60" />
+          <a
+            href={personal.cvUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium bg-accent/10 text-accent border border-accent/30 hover:bg-accent/20 transition-all duration-200"
+          >
+            {t.nav.downloadCv}
+          </a>
+        </div>
 
         {/* Mobile toggle */}
         <button
@@ -76,7 +115,7 @@ export default function Navbar() {
             <a
               key={l.href}
               href={l.href}
-              className="text-sm text-text-secondary hover:text-text-primary transition-colors"
+              className={`text-sm transition-colors ${activeSection && l.href === '#' + activeSection ? 'text-accent font-semibold' : 'text-text-secondary hover:text-text-primary'}`}
               onClick={() => setOpen(false)}
             >
               {l.label}
@@ -89,8 +128,23 @@ export default function Navbar() {
             className="inline-flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium bg-accent/10 text-accent border border-accent/30 w-fit"
             onClick={() => setOpen(false)}
           >
-            Télécharger CV
+            {t.nav.downloadCv}
           </a>
+          <div className="flex items-center gap-0.5 font-mono text-xs">
+            {(["fr", "en", "es"] as Lang[]).map((l) => (
+              <button
+                key={l}
+                onClick={() => setLang(l)}
+                className={`px-1.5 py-1 rounded transition-colors uppercase ${
+                  lang === l
+                    ? "text-accent font-semibold"
+                    : "text-muted hover:text-text-secondary"
+                }`}
+              >
+                {l}
+              </button>
+            ))}
+          </div>
         </div>
       )}
     </header>

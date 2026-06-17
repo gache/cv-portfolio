@@ -4,6 +4,7 @@ import { useState } from "react";
 import { experiences } from "@/data/cv";
 import SectionWrapper from "@/components/ui/SectionWrapper";
 import { ChevronDown, ChevronRight } from "lucide-react"; // ChevronRight used in mission expand
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const typeStyle: Record<string, { pill: string; dot: string }> = {
   QA:    { pill: "bg-pass/10 text-pass border-pass/30",                   dot: "bg-pass" },
@@ -50,6 +51,8 @@ function EmployerCard({
   prominent?: boolean;
 }) {
   const [collapsed, setCollapsed] = useState(!defaultOpen);
+  const { lang } = useLanguage();
+  const currentLabel = lang === "en" ? "Current" : lang === "es" ? "Actual" : "Actuel";
   const meta = employerMeta[employer];
   const isCurrent = employer === "IBM";
 
@@ -72,7 +75,7 @@ function EmployerCard({
           {isCurrent && (
             <span className="flex items-center gap-1 text-xs text-pass font-mono">
               <span className="w-1.5 h-1.5 rounded-full bg-pass animate-pulse" />
-              Actuel
+              {currentLabel}
             </span>
           )}
         </div>
@@ -128,7 +131,7 @@ function EmployerCard({
 
                 {isOpen && (
                   <div className="px-4 pb-4 bg-elevated/20 animate-fade-in">
-                    <p className="text-sm text-text-secondary leading-relaxed mb-3 pl-3 border-l-2 border-accent/40 italic">
+                    <p className="prose-justify text-sm text-text-secondary leading-relaxed mb-3 pl-3 border-l-2 border-accent/40 italic">
                       {exp.description}
                     </p>
                     <ul className="space-y-1.5 mb-4">
@@ -161,7 +164,19 @@ function EmployerCard({
 }
 
 export default function Experience() {
-  const allGroups = groupByEmployer(experiences);
+  const { t } = useLanguage();
+
+  const translatedExps = experiences.map((exp) => {
+    const tr = t.experience.items.find((item) => item.id === exp.id);
+    return {
+      ...exp,
+      role: tr?.role ?? exp.role,
+      description: tr?.description ?? exp.description,
+      responsibilities: tr?.responsibilities ?? exp.responsibilities,
+    };
+  });
+
+  const allGroups = groupByEmployer(translatedExps);
   // Fix #4: separate state per layout to avoid invisible duplicate interactions
   const [openExpDesktop, setOpenExpDesktop] = useState<number | null>(null);
   const [openExpMobile, setOpenExpMobile] = useState<number | null>(null);
@@ -173,10 +188,10 @@ export default function Experience() {
   return (
     <SectionWrapper id="experience" className="py-24 bg-surface/20">
       <div className="max-w-5xl mx-auto px-6">
-        <p className="text-xs font-mono text-accent mb-3 tracking-widest uppercase text-center">Expérience</p>
-        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">Parcours professionnel</h2>
+        <p className="text-xs font-mono text-accent mb-3 tracking-widest uppercase text-center">{t.experience.eyebrow}</p>
+        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">{t.experience.title}</h2>
         <p className="text-text-secondary text-center mb-16 max-w-xl mx-auto">
-          Expériences regroupées par employeur — missions ESN et engagements directs.
+          {t.experience.subtitle}
         </p>
 
         {/* Desktop: center-line alternating */}

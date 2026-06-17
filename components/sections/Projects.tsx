@@ -1,20 +1,30 @@
+"use client";
+
+import { useLanguage } from "@/contexts/LanguageContext";
 import { projects } from "@/data/cv";
 import SectionWrapper from "@/components/ui/SectionWrapper";
 import { ExternalLink } from "lucide-react";
 import { GithubIcon } from "@/components/ui/Icons";
 
 export default function Projects() {
+  const { t } = useLanguage();
+
+  const translatedProjects = projects.map((p) => {
+    const tr = t.projects.items.find((item) => item.id === p.id);
+    return { ...p, title: tr?.title ?? p.title, description: tr?.description ?? p.description };
+  });
+
   return (
     <SectionWrapper id="projets" className="py-24 bg-surface/20">
       <div className="max-w-6xl mx-auto px-6">
-        <p className="text-xs font-mono text-accent mb-3 tracking-widest uppercase text-center">Projets</p>
-        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">Projets personnels</h2>
+        <p className="text-xs font-mono text-accent mb-3 tracking-widest uppercase text-center">{t.projects.eyebrow}</p>
+        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">{t.projects.title}</h2>
         <p className="text-text-secondary text-center mb-16 max-w-xl mx-auto">
-          Side projects construits pour explorer de nouvelles technologies et résoudre de vrais problèmes.
+          {t.projects.subtitle}
         </p>
 
         <div className="grid md:grid-cols-2 gap-6">
-          {projects.map((project, i) => {
+          {translatedProjects.map((project, i) => {
             const hasGithub = project.github !== "#";
             const hasDemo = project.demo !== "#";
             const isFeatured = (project as { featured?: boolean }).featured;
@@ -75,16 +85,16 @@ export default function Projects() {
                     {project.description}
                   </p>
                   <div className="flex flex-wrap gap-1.5">
-                    {project.tech.map((t) => (
+                    {project.tech.map((tech) => (
                       <span
-                        key={t}
+                        key={tech}
                         className={`px-2 py-0.5 rounded text-xs font-mono border ${
-                          t === "Claude Code"
+                          tech === "Claude Code"
                             ? "bg-accent/10 text-accent border-accent/30"
                             : "bg-elevated text-muted border-border/40"
                         }`}
                       >
-                        {t}
+                        {tech}
                       </span>
                     ))}
                   </div>

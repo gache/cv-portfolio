@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { skills } from "@/data/cv";
 import SectionWrapper from "@/components/ui/SectionWrapper";
 
@@ -8,74 +9,61 @@ const categoryOrder = ["Test Automation", "Backend", "Frontend", "DevOps & Outil
 
 export default function Skills() {
   const [activeCategory, setActiveCategory] = useState("Test Automation");
-  const [animated, setAnimated] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setAnimated(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.2 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
+  const { t } = useLanguage();
 
   const currentSkills = skills[activeCategory as keyof typeof skills] ?? [];
+  const desc = t.skills.categoryDesc[activeCategory];
 
   return (
     <SectionWrapper id="skills" className="py-24">
       <div className="max-w-6xl mx-auto px-6">
-        <p className="text-xs font-mono text-accent mb-3 tracking-widest uppercase text-center">Compétences</p>
-        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">Stack technique</h2>
+        <p className="text-xs font-mono text-accent mb-3 tracking-widest uppercase text-center">{t.skills.eyebrow}</p>
+        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">{t.skills.title}</h2>
         <p className="text-text-secondary text-center mb-12 max-w-xl mx-auto">
-          Expertise construite sur des projets réels en environnements critiques.
+          {t.skills.subtitle}
         </p>
 
         {/* Category tabs */}
-        <div className="flex flex-wrap justify-center gap-2 mb-12">
+        <div className="flex flex-wrap justify-center gap-2 mb-10">
           {categoryOrder.map((cat) => (
             <button
               key={cat}
-              onClick={() => { setActiveCategory(cat); setAnimated(false); setTimeout(() => setAnimated(true), 50); }}
+              onClick={() => setActiveCategory(cat)}
               className={`px-4 py-2 rounded-lg text-sm font-mono transition-all duration-200 ${
                 activeCategory === cat
                   ? "bg-accent text-bg font-medium"
                   : "bg-surface border border-border/50 text-text-secondary hover:border-accent/40 hover:text-text-primary"
               }`}
             >
-              {cat}
+              {t.skills.categories[cat] ?? cat}
             </button>
           ))}
         </div>
 
-        {/* Skills grid */}
-        <div ref={ref} className="grid md:grid-cols-2 gap-4 max-w-3xl mx-auto">
-          {currentSkills.map((skill, i) => (
-            <div
-              key={skill.name}
-              className="p-4 rounded-lg border border-border/50 bg-surface/50"
-              style={{ animationDelay: `${i * 0.08}s` }}
-            >
-              <div className="flex items-center justify-between mb-2.5">
-                <span className="text-sm font-medium font-mono">{skill.name}</span>
-                <span className="text-xs text-muted font-mono">{skill.level}%</span>
-              </div>
-              <div className="h-1.5 bg-elevated rounded-full overflow-hidden">
-                <div
-                  className="h-full rounded-full bg-gradient-to-r from-accent to-accent-dark transition-all duration-1000 ease-out"
+        {/* Tag grid */}
+        <div className="max-w-3xl mx-auto">
+          <p className="text-xs font-mono text-muted mb-6 text-center">{desc}</p>
+          <div key={activeCategory} className="flex flex-wrap justify-center gap-3">
+            {currentSkills.map((skill, i) => {
+              const isCore = skill.level >= 85;
+              return (
+                <span
+                  key={skill.name}
+                  className={`px-4 py-2 rounded-lg text-sm font-mono ${
+                    isCore
+                      ? "bg-accent/15 border border-accent/40 text-accent font-medium"
+                      : "bg-surface border border-border/50 text-text-secondary"
+                  }`}
                   style={{
-                    width: animated ? `${skill.level}%` : "0%",
-                    transitionDelay: `${i * 80}ms`,
+                    opacity: 0,
+                    animation: `fadeIn 0.25s ease ${i * 45}ms forwards`,
                   }}
-                />
-              </div>
-            </div>
-          ))}
+                >
+                  {skill.name}
+                </span>
+              );
+            })}
+          </div>
         </div>
       </div>
     </SectionWrapper>

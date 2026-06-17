@@ -3,19 +3,21 @@
 import { useEffect, useState } from "react";
 import { personal } from "@/data/cv";
 import { ArrowDown, Download, Mail } from "lucide-react";
-
-const terminalLines = [
-  { text: "$ running qualification suite...", delay: 200, color: "text-muted" },
-  { text: "✓ QA Automation Engineer", delay: 700, color: "text-pass" },
-  { text: "✓ Java Spring Boot Developer", delay: 1200, color: "text-pass" },
-  { text: "✓ AI Enthusiast", delay: 1700, color: "text-pass" },
-  { text: "", delay: 2000, color: "" },
-  { text: "3/3 passed · 10+ ans d'expérience", delay: 2200, color: "text-accent" },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Hero() {
+  const { t } = useLanguage();
   const [visibleLines, setVisibleLines] = useState<number[]>([]);
   const [titleIndex, setTitleIndex] = useState(0);
+
+  const terminalLines = [
+    { text: "$ running qualification suite...", delay: 200, color: "text-muted" },
+    { text: "✓ QA Automation Engineer", delay: 700, color: "text-pass" },
+    { text: "✓ Java Spring Boot Developer", delay: 1200, color: "text-pass" },
+    { text: "✓ AI Enthusiast", delay: 1700, color: "text-pass" },
+    { text: "", delay: 2000, color: "" },
+    { text: t.hero.terminalSuffix, delay: 2200, color: "text-accent" },
+  ];
 
   useEffect(() => {
     terminalLines.forEach((line, i) => {
@@ -44,7 +46,7 @@ export default function Hero() {
           <div className="animate-fade-up">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-accent/30 bg-accent/5 text-xs text-accent font-mono mb-6">
               <span className="w-1.5 h-1.5 rounded-full bg-pass animate-pulse" />
-              Disponible pour de nouvelles missions
+              {t.hero.available}
             </div>
 
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-4">
@@ -63,7 +65,7 @@ export default function Hero() {
             </div>
 
             <p className="text-text-secondary leading-relaxed mb-10 max-w-lg">
-              {personal.description}
+              {t.hero.description}
             </p>
 
             <div className="flex flex-wrap gap-4">
@@ -74,20 +76,21 @@ export default function Hero() {
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md text-sm font-medium bg-accent text-bg hover:bg-accent/90 transition-all duration-200 font-mono"
               >
                 <Download size={16} />
-                Télécharger CV
+                {t.hero.downloadCv}
               </a>
               <a
                 href="#contact"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md text-sm font-medium border border-border hover:border-accent/50 hover:text-accent transition-all duration-200"
               >
                 <Mail size={16} />
-                Me contacter
+                {t.hero.contactMe}
               </a>
               <a
                 href="#experience"
+                aria-label={t.hero.seeExperience}
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md text-sm font-medium text-text-secondary hover:text-text-primary transition-colors duration-200"
               >
-                Voir l&apos;expérience
+                {t.hero.seeExperience}
                 <ArrowDown size={16} />
               </a>
             </div>
@@ -127,12 +130,12 @@ export default function Hero() {
 
             {/* Tech badges */}
             <div className="flex flex-wrap gap-2 mt-4">
-              {["UFT", "Playwright", "Spring Boot", "Angular", "Claude AI", "CI/CD"].map((t) => (
+              {["UFT", "Playwright", "Spring Boot", "Angular", "Claude AI", "CI/CD"].map((badge) => (
                 <span
-                  key={t}
+                  key={badge}
                   className="px-2.5 py-1 rounded-md text-xs font-mono bg-elevated/80 text-text-secondary border border-border/50"
                 >
-                  {t}
+                  {badge}
                 </span>
               ))}
             </div>
@@ -143,8 +146,8 @@ export default function Hero() {
       {/* Scroll hint */}
       <a
         href="#apropos"
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-muted hover:text-accent transition-colors animate-bounce"
-        aria-label="Défiler vers le bas"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-muted hover:text-accent transition-colors animate-nudge"
+        aria-label={t.hero.scrollLabel}
       >
         <ArrowDown size={20} />
       </a>

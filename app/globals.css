@@ -19,7 +19,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-p {
+.prose-justify, .prose-justify p {
   text-align: justify;
   hyphens: auto;
 }
@@ -61,8 +61,13 @@ p {
 }
 
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
+  from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes nudgeDown {
+  0%, 100% { transform: translateY(0); opacity: 0.5; }
+  50% { transform: translateY(6px); opacity: 1; }
 }
 
 @keyframes fadeIn {
@@ -86,7 +91,11 @@ p {
 }
 
 .animate-fade-up {
-  animation: fadeUp 0.6s ease forwards;
+  animation: fadeUp 0.5s ease forwards;
+}
+
+.animate-nudge {
+  animation: nudgeDown 2.4s ease-in-out infinite;
 }
 
 .animate-fade-in {
@@ -141,4 +150,64 @@ p {
   transform: translateY(-3px);
   box-shadow: 0 12px 40px rgba(129, 140, 248, 0.12);
   border-color: #818CF8;
+}
+
+/* ── Print / PDF CV ─────────────────────────────────────── */
+@media print {
+  /* Hide nav, footer, interactive elements */
+  header, footer, #temoignages,
+  button, .cursor-blink,
+  .animate-nudge, .animate-pulse,
+  a[href="#apropos"], a[href^="#"] { display: none !important; }
+
+  body {
+    background: white !important;
+    color: #111 !important;
+    font-size: 11pt;
+  }
+
+  section {
+    opacity: 1 !important;
+    transform: none !important;
+    page-break-inside: avoid;
+  }
+
+  h1, h2, h3 { color: #111 !important; }
+
+  .gradient-text {
+    background: none !important;
+    -webkit-text-fill-color: #4F46E5 !important;
+    color: #4F46E5 !important;
+  }
+
+  .bg-surface, .bg-elevated, .bg-bg { background: white !important; }
+
+  .text-accent { color: #4F46E5 !important; }
+  .text-text-secondary, .text-muted { color: #555 !important; }
+
+  .border-border\/50, .border-border { border-color: #ddd !important; }
+
+  /* Show page URL at bottom */
+  @page {
+    margin: 1.5cm;
+  }
+}
+
+/* ── Accessibility ──────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid #818CF8;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .animate-nudge, .animate-pulse, .cursor-blink {
+    animation: none !important;
+  }
 }

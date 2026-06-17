@@ -203,6 +203,7 @@ export const skills = {
     { name: "Playwright", level: 90 },
     { name: "UFT", level: 88 },
     { name: "Cucumber / BDD", level: 85 },
+    { name: "Squash TM", level: 88 },
     { name: "Pact (Contract)", level: 80 },
     { name: "Postman / Newman", level: 90 },
   ],
@@ -223,6 +224,7 @@ export const skills = {
     { name: "CI/CD", level: 80 },
     { name: "Sonar", level: 80 },
     { name: "Jira / Confluence", level: 90 },
+    { name: "Agile / Scrum", level: 88 },
   ],
   "Intelligence Artificielle": [
     { name: "Prompt Engineering", level: 88 },

@@ -30,8 +30,8 @@ export default function SectionWrapper({ id, children, className = "" }: Props) 
     <section
       ref={ref}
       id={id}
-      className={`transition-all duration-700 ${
-        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+      className={`transition-all duration-500 ${
+        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
       } ${className}`}
     >
       {children}

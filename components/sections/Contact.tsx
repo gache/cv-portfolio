@@ -5,8 +5,10 @@ import { personal } from "@/data/cv";
 import SectionWrapper from "@/components/ui/SectionWrapper";
 import { Mail, Send } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/ui/Icons";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Contact() {
+  const { t } = useLanguage();
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState("");
@@ -31,7 +33,7 @@ export default function Contact() {
       if (!res.ok) throw new Error();
       setSent(true);
     } catch {
-      setError("Erreur d'envoi. Réessayez ou contactez-moi directement par email.");
+      setError(t.contact.errorMsg);
     } finally {
       setSending(false);
     }
@@ -40,10 +42,10 @@ export default function Contact() {
   return (
     <SectionWrapper id="contact" className="py-24 bg-surface/20">
       <div className="max-w-6xl mx-auto px-6">
-        <p className="text-xs font-mono text-accent mb-3 tracking-widest uppercase text-center">Contact</p>
-        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">Travaillons ensemble</h2>
+        <p className="text-xs font-mono text-accent mb-3 tracking-widest uppercase text-center">{t.contact.eyebrow}</p>
+        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">{t.contact.title}</h2>
         <p className="text-text-secondary text-center mb-16 max-w-xl mx-auto">
-          Une opportunité, un projet, une question — je réponds sous 24h.
+          {t.contact.subtitle}
         </p>
 
         <div className="grid lg:grid-cols-2 gap-12 max-w-4xl mx-auto">
@@ -52,24 +54,24 @@ export default function Contact() {
             {sent ? (
               <div className="h-full flex flex-col items-center justify-center text-center p-8 rounded-xl border border-pass/30 bg-pass/5">
                 <span className="text-4xl mb-4">✓</span>
-                <p className="font-semibold text-pass mb-2">Message envoyé !</p>
-                <p className="text-sm text-text-secondary">Je vous réponds dans les 24h.</p>
+                <p className="font-semibold text-pass mb-2">{t.contact.sentTitle}</p>
+                <p className="text-sm text-text-secondary">{t.contact.sentBody}</p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs text-text-secondary mb-1.5 font-mono">Nom</label>
+                    <label className="block text-xs text-text-secondary mb-1.5 font-mono">{t.contact.labelName}</label>
                     <input
                       type="text"
                       name="name"
                       required
                       className="w-full px-3 py-2.5 rounded-lg bg-surface border border-border/50 text-sm focus:outline-none focus:border-accent/60 transition-colors"
-                      placeholder="Jean Dupont"
+                      placeholder={t.contact.placeholderName}
                     />
                   </div>
                   <div>
-                    <label className="block text-xs text-text-secondary mb-1.5 font-mono">Email</label>
+                    <label className="block text-xs text-text-secondary mb-1.5 font-mono">{t.contact.labelEmail}</label>
                     <input
                       type="email"
                       name="email"
@@ -80,22 +82,22 @@ export default function Contact() {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-xs text-text-secondary mb-1.5 font-mono">Entreprise</label>
+                  <label className="block text-xs text-text-secondary mb-1.5 font-mono">{t.contact.labelCompany}</label>
                   <input
                     type="text"
                     name="company"
                     className="w-full px-3 py-2.5 rounded-lg bg-surface border border-border/50 text-sm focus:outline-none focus:border-accent/60 transition-colors"
-                    placeholder="Nom de votre entreprise"
+                    placeholder={t.contact.placeholderCompany}
                   />
                 </div>
                 <div>
-                  <label className="block text-xs text-text-secondary mb-1.5 font-mono">Message</label>
+                  <label className="block text-xs text-text-secondary mb-1.5 font-mono">{t.contact.labelMessage}</label>
                   <textarea
                     required
                     name="message"
                     rows={4}
                     className="w-full px-3 py-2.5 rounded-lg bg-surface border border-border/50 text-sm focus:outline-none focus:border-accent/60 transition-colors resize-none"
-                    placeholder="Décrivez votre besoin ou opportunité..."
+                    placeholder={t.contact.placeholderMessage}
                   />
                 </div>
                 <button
@@ -108,7 +110,7 @@ export default function Contact() {
                   ) : (
                     <Send size={15} />
                   )}
-                  {sending ? "Envoi..." : "Envoyer le message"}
+                  {sending ? t.contact.sending : t.contact.submit}
                 </button>
                 {error && (
                   <p className="text-sm text-red-400 text-center">{error}</p>
@@ -121,16 +123,15 @@ export default function Contact() {
           <div className="space-y-6">
             <div>
               <p className="text-sm text-text-secondary leading-relaxed mb-6">
-                Disponible pour des missions en ESN, des postes en CDI ou des freelances dans les domaines de la QA automatisation,
-                du développement Java/Spring Boot ou de l&apos;intégration IA.
+                {t.contact.availability}
               </p>
               <div className="flex items-center gap-3 text-sm text-text-secondary mb-2">
                 <span className="text-pass">●</span>
-                <span>Basé à <strong className="text-text-primary">Lille, France</strong></span>
+                <span>{t.contact.basedIn}</span>
               </div>
               <div className="flex items-center gap-3 text-sm text-text-secondary">
                 <span className="text-pass">●</span>
-                <span>Open à <strong className="text-text-primary">remote & hybride</strong></span>
+                <span>{t.contact.openTo}</span>
               </div>
             </div>
 
