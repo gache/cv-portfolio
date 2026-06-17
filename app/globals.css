@@ -1,0 +1,139 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-geist-sans: "Inter", system-ui, sans-serif;
+  --font-geist-mono: "JetBrains Mono", monospace;
+}
+
+* {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #09090B;
+  color: #FAFAFA;
+  font-family: var(--font-geist-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #18181B;
+}
+::-webkit-scrollbar-thumb {
+  background: #3F3F46;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #818CF8;
+}
+
+/* Noise texture overlay */
+.noise::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.4;
+}
+
+/* Gradient glow accent */
+.accent-glow {
+  box-shadow: 0 0 60px rgba(129, 140, 248, 0.15);
+}
+
+/* Timeline connector */
+.timeline-line {
+  background: linear-gradient(to bottom, #818CF8, #4F46E5, transparent);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-10px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.6s ease forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+.animate-slide-in {
+  animation: slideIn 0.3s ease forwards;
+}
+
+.cursor-blink {
+  animation: blink 1s step-end infinite;
+}
+
+/* Skill bar animation */
+@keyframes grow {
+  from { width: 0; }
+  to { width: var(--target-width); }
+}
+
+.skill-bar {
+  animation: grow 1s ease forwards;
+}
+
+/* Section fade on scroll — handled via JS/framer */
+.section-hidden {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+/* Grid background pattern */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(129, 140, 248, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(129, 140, 248, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #818CF8, #A78BFA, #C084FC);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Card hover */
+.card-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.card-hover:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(129, 140, 248, 0.12);
+  border-color: #818CF8;
+}
