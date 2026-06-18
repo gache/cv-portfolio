@@ -3,15 +3,24 @@
 import { useState } from "react";
 import { experiences } from "@/data/cv";
 import SectionWrapper from "@/components/ui/SectionWrapper";
-import { ChevronDown, ChevronRight } from "lucide-react"; // ChevronRight used in mission expand
+import { ChevronDown, ChevronRight, ShieldCheck, Code2, Settings, Monitor, Users, Briefcase } from "lucide-react"; // ChevronRight used in mission expand
 import { useLanguage } from "@/contexts/LanguageContext";
+import { Highlight } from "@/components/ui/Highlight";
 
-const typeStyle: Record<string, { pill: string; dot: string }> = {
-  QA:    { pill: "bg-pass/10 text-pass border-pass/30",                   dot: "bg-pass" },
-  Dev:   { pill: "bg-accent/10 text-accent border-accent/30",             dot: "bg-accent" },
-  Admin: { pill: "bg-yellow-400/10 text-yellow-400 border-yellow-400/30", dot: "bg-yellow-400" },
-  IT:    { pill: "bg-sky-400/10 text-sky-400 border-sky-400/30",          dot: "bg-sky-400" },
-  Asso:  { pill: "bg-rose-400/10 text-rose-400 border-rose-400/30",       dot: "bg-rose-400" },
+const EXP_KEYWORDS = [
+  "UFT", "Playwright", "Squash", "Squash TM", "Jira", "Confluence",
+  "Spring Boot", "Angular", "JUnit", "Mockito", "Sonar",
+  "Kafka", "Pact", "Cucumber", "Postman", "Newman", "Elastic",
+  "GitLab", "Azure DevOps", "CI/CD", "BDD", "Scrum", "Kanban",
+  "EasyVista", "LDAP", "Infor M3",
+];
+
+const typeStyle: Record<string, { pill: string; dot: string; icon: React.ElementType }> = {
+  QA:    { pill: "bg-pass/10 text-pass border-pass/30",                   dot: "bg-pass",       icon: ShieldCheck },
+  Dev:   { pill: "bg-accent/10 text-accent border-accent/30",             dot: "bg-accent",     icon: Code2 },
+  Admin: { pill: "bg-yellow-400/10 text-yellow-400 border-yellow-400/30", dot: "bg-yellow-400", icon: Settings },
+  IT:    { pill: "bg-sky-400/10 text-sky-400 border-sky-400/30",          dot: "bg-sky-400",    icon: Monitor },
+  Asso:  { pill: "bg-rose-400/10 text-rose-400 border-rose-400/30",       dot: "bg-rose-400",   icon: Users },
 };
 
 const employerMeta: Record<string, { period: string; label: string }> = {
@@ -102,14 +111,16 @@ function EmployerCard({
                 >
                   <span className={`mt-2 w-1.5 h-1.5 rounded-full flex-shrink-0 ${colors.dot}`} />
                   <div className="flex-1 min-w-0">
-                    <p className="text-base font-bold leading-tight mb-1">{exp.role}</p>
+                    <p className="text-base font-bold leading-tight mb-0.5">{exp.role}</p>
+                    {exp.company !== employer && (
+                      <p className="text-sm text-text-secondary mb-1.5">{exp.company}</p>
+                    )}
                     <div className="flex flex-wrap items-center gap-1.5">
-                      <span className={`px-1.5 py-0.5 rounded text-xs font-mono font-semibold border ${colors.pill}`}>
+                      <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-xs font-mono font-semibold border ${colors.pill}`}>
+                        <colors.icon size={10} />
                         {exp.type}
                       </span>
                       <span className="text-xs text-muted font-mono">{exp.period}</span>
-                      <span className="text-xs text-muted">·</span>
-                      <span className="text-xs text-text-secondary">{exp.company}</span>
                     </div>
                     {!isOpen && (
                       <div className="flex flex-wrap gap-1 mt-1.5">
@@ -132,13 +143,13 @@ function EmployerCard({
                 {isOpen && (
                   <div className="px-4 pb-4 bg-elevated/20 animate-fade-in">
                     <p className="prose-justify text-sm text-text-secondary leading-relaxed mb-3 pl-3 border-l-2 border-accent/40 italic">
-                      {exp.description}
+                      <Highlight text={exp.description} words={EXP_KEYWORDS} />
                     </p>
                     <ul className="space-y-1.5 mb-4">
                       {exp.responsibilities.map((r) => (
                         <li key={r} className="flex gap-2.5 text-sm text-text-secondary">
                           <span className="text-pass font-mono text-xs mt-0.5 flex-shrink-0">✓</span>
-                          <span className="leading-relaxed">{r}</span>
+                          <span className="leading-relaxed"><Highlight text={r} words={EXP_KEYWORDS} /></span>
                         </li>
                       ))}
                     </ul>
@@ -186,9 +197,12 @@ export default function Experience() {
     .filter(([, exps]) => exps !== undefined);
 
   return (
-    <SectionWrapper id="experience" className="py-24 bg-surface/20">
+    <SectionWrapper id="experience" className="py-24 bg-surface/50">
       <div className="max-w-5xl mx-auto px-6">
-        <p className="text-xs font-mono text-accent mb-3 tracking-widest uppercase text-center">{t.experience.eyebrow}</p>
+        <p className="inline-flex items-center gap-1.5 text-xs font-mono text-accent mb-3 tracking-widest uppercase text-center w-full justify-center">
+          <Briefcase size={12} />
+          {t.experience.eyebrow}
+        </p>
         <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">{t.experience.title}</h2>
         <p className="text-text-secondary text-center mb-16 max-w-xl mx-auto">
           {t.experience.subtitle}
@@ -241,14 +255,19 @@ export default function Experience() {
         </div>
 
         {/* Mobile: single column */}
-        <div className="md:hidden relative pl-8">
-          <div className="absolute left-3 top-0 bottom-0 w-px bg-gradient-to-b from-accent via-accent/40 to-transparent" />
-          <div className="space-y-4">
-            {allGroupsList.map(([employer, exps]) => {
-              const isIBM = employer === "IBM";
-              return (
-                <div key={employer} className="relative">
-                  <div className={`absolute -left-5 top-4 rounded-full border-2 border-bg ${isIBM ? "w-4 h-4 bg-accent" : "w-3 h-3 bg-muted/60"}`} />
+        <div className="md:hidden space-y-2">
+          {allGroupsList.map(([employer, exps], i) => {
+            const isIBM = employer === "IBM";
+            const isLast = i === allGroupsList.length - 1;
+            return (
+              <div key={employer} className="flex gap-3">
+                {/* Timeline spine */}
+                <div className="flex flex-col items-center flex-shrink-0 w-4">
+                  <div className={`rounded-full flex-shrink-0 mt-4 ${isIBM ? "w-3.5 h-3.5 bg-accent shadow-[0_0_10px_rgba(129,140,248,0.6)]" : "w-2.5 h-2.5 bg-muted/60"}`} />
+                  {!isLast && <div className="flex-1 w-px bg-gradient-to-b from-accent/40 to-transparent mt-1" />}
+                </div>
+                {/* Card */}
+                <div className="flex-1 pb-4">
                   <EmployerCard
                     employer={employer}
                     exps={exps}
@@ -258,9 +277,9 @@ export default function Experience() {
                     prominent={isIBM}
                   />
                 </div>
-              );
-            })}
-          </div>
+              </div>
+            );
+          })}
         </div>
 
       </div>

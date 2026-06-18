@@ -7,6 +7,10 @@
   --font-jetbrains-mono: "JetBrains Mono", monospace;
 }
 
+html {
+  font-size: 18px;
+}
+
 * {
   scroll-behavior: smooth;
 }

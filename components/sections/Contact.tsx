@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { personal } from "@/data/cv";
 import SectionWrapper from "@/components/ui/SectionWrapper";
-import { Mail, Send } from "lucide-react";
+import { Mail, Send, MessageSquare } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/ui/Icons";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -40,9 +40,12 @@ export default function Contact() {
   };
 
   return (
-    <SectionWrapper id="contact" className="py-24 bg-surface/20">
+    <SectionWrapper id="contact" className="py-24 bg-surface/50">
       <div className="max-w-6xl mx-auto px-6">
-        <p className="text-xs font-mono text-accent mb-3 tracking-widest uppercase text-center">{t.contact.eyebrow}</p>
+        <p className="inline-flex items-center gap-1.5 text-xs font-mono text-accent mb-3 tracking-widest uppercase text-center w-full justify-center">
+          <MessageSquare size={12} />
+          {t.contact.eyebrow}
+        </p>
         <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">{t.contact.title}</h2>
         <p className="text-text-secondary text-center mb-16 max-w-xl mx-auto">
           {t.contact.subtitle}

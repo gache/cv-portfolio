@@ -3,7 +3,7 @@
 import { useLanguage } from "@/contexts/LanguageContext";
 import { projects } from "@/data/cv";
 import SectionWrapper from "@/components/ui/SectionWrapper";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, FolderOpen } from "lucide-react";
 import { GithubIcon } from "@/components/ui/Icons";
 
 export default function Projects() {
@@ -15,9 +15,12 @@ export default function Projects() {
   });
 
   return (
-    <SectionWrapper id="projets" className="py-24 bg-surface/20">
+    <SectionWrapper id="projets" className="py-24 bg-surface/50">
       <div className="max-w-6xl mx-auto px-6">
-        <p className="text-xs font-mono text-accent mb-3 tracking-widest uppercase text-center">{t.projects.eyebrow}</p>
+        <p className="inline-flex items-center gap-1.5 text-xs font-mono text-accent mb-3 tracking-widest uppercase text-center w-full justify-center">
+          <FolderOpen size={12} />
+          {t.projects.eyebrow}
+        </p>
         <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">{t.projects.title}</h2>
         <p className="text-text-secondary text-center mb-16 max-w-xl mx-auto">
           {t.projects.subtitle}

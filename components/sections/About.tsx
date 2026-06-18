@@ -2,7 +2,10 @@
 
 import { useLanguage } from "@/contexts/LanguageContext";
 import SectionWrapper from "@/components/ui/SectionWrapper";
-import { Shield, Code2, Brain, Rocket } from "lucide-react";
+import { Shield, Code2, Brain, Rocket, User2 } from "lucide-react";
+import { Highlight } from "@/components/ui/Highlight";
+
+const ABOUT_KEYWORDS = ["IBM", "QA + Dev", "Claude 101", "Anthropic", "IA générative", "Generative AI", "IA generativa", "automatisation intelligente", "intelligent automation", "automatización inteligente"];
 
 const journeyIcons = [Shield, Code2, Shield, Brain, Rocket];
 
@@ -21,16 +24,19 @@ export default function About() {
         <div className="grid lg:grid-cols-2 gap-16 items-start">
           {/* Left */}
           <div>
-            <p className="text-xs font-mono text-accent mb-3 tracking-widest uppercase">{t.about.eyebrow}</p>
+            <p className="inline-flex items-center gap-1.5 text-xs font-mono text-accent mb-3 tracking-widest uppercase">
+              <User2 size={12} />
+              {t.about.eyebrow}
+            </p>
             <h2 className="text-3xl md:text-4xl font-bold mb-6 leading-tight">
               {t.about.title}{" "}
-              <span className="gradient-text">{t.about.titleAccent}</span>
+              <span className="text-accent">{t.about.titleAccent}</span>
             </h2>
             <p className="prose-justify text-text-secondary leading-relaxed mb-6">
-              {t.about.p1}
+              <Highlight text={t.about.p1} words={ABOUT_KEYWORDS} />
             </p>
             <p className="prose-justify text-text-secondary leading-relaxed mb-8">
-              {t.about.p2}
+              <Highlight text={t.about.p2} words={ABOUT_KEYWORDS} />
             </p>
 
             <div className="flex flex-wrap gap-3">

@@ -4,6 +4,9 @@ import { useEffect, useState } from "react";
 import { personal } from "@/data/cv";
 import { ArrowDown, Download, Mail } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { Highlight } from "@/components/ui/Highlight";
+
+const HERO_KEYWORDS = ["IBM", "QA Automation", "Claude 101", "Anthropic", "Playwright", "UFT"];
 
 export default function Hero() {
   const { t } = useLanguage();
@@ -13,8 +16,8 @@ export default function Hero() {
   const terminalLines = [
     { text: "$ running qualification suite...", delay: 200, color: "text-muted" },
     { text: "✓ QA Automation Engineer", delay: 700, color: "text-pass" },
-    { text: "✓ Java Spring Boot Developer", delay: 1200, color: "text-pass" },
-    { text: "✓ AI Enthusiast", delay: 1700, color: "text-pass" },
+    { text: "✓ AI Enthusiast — Claude 101", delay: 1200, color: "text-pass" },
+    { text: "✓ Java/Spring Boot — background", delay: 1700, color: "text-pass" },
     { text: "", delay: 2000, color: "" },
     { text: t.hero.terminalSuffix, delay: 2200, color: "text-accent" },
   ];
@@ -37,8 +40,8 @@ export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center grid-bg overflow-hidden">
       {/* Gradient orb */}
-      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-96 h-96 bg-accent/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute top-1/3 right-1/4 w-64 h-64 bg-accent-dark/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-96 h-96 bg-accent/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/3 right-1/4 w-64 h-64 bg-accent-dark/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-6 py-16 md:py-24 lg:py-32 w-full">
         <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -52,7 +55,7 @@ export default function Hero() {
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-4">
               <span className="text-text-primary">Erick</span>
               <br />
-              <span className="gradient-text">Franco</span>
+              <span className="text-accent">Franco</span>
             </h1>
 
             <div className="h-8 mb-6 overflow-hidden">
@@ -65,7 +68,7 @@ export default function Hero() {
             </div>
 
             <p className="text-text-secondary leading-relaxed mb-10 max-w-lg">
-              {t.hero.description}
+              <Highlight text={t.hero.description} words={HERO_KEYWORDS} />
             </p>
 
             <div className="flex flex-wrap gap-4">
@@ -130,7 +133,7 @@ export default function Hero() {
 
             {/* Tech badges */}
             <div className="flex flex-wrap gap-2 mt-4">
-              {["UFT", "Playwright", "Spring Boot", "Angular", "Claude AI", "CI/CD"].map((badge) => (
+              {["Playwright", "Claude AI", "UFT", "Spring Boot", "Angular", "CI/CD"].map((badge) => (
                 <span
                   key={badge}
                   className="px-2.5 py-1 rounded-md text-xs font-mono bg-elevated/80 text-text-secondary border border-border/50"

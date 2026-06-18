@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import SectionWrapper from "@/components/ui/SectionWrapper";
-import { X, Send } from "lucide-react";
+import { X, Send, MessageSquare } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 type Testimonial = { name: string; role: string; company: string; text: string };
@@ -130,7 +130,10 @@ export default function Testimonials({ initialTestimonials }: { initialTestimoni
     <>
       <SectionWrapper id="temoignages" className="py-24">
         <div className="max-w-6xl mx-auto px-6">
-          <p className="text-xs font-mono text-accent mb-3 tracking-widest uppercase text-center">{t.testimonials.eyebrow}</p>
+          <p className="inline-flex items-center gap-1.5 text-xs font-mono text-accent mb-3 tracking-widest uppercase text-center w-full justify-center">
+            <MessageSquare size={12} />
+            {t.testimonials.eyebrow}
+          </p>
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">{t.testimonials.title}</h2>
           <p className="text-text-secondary text-center mb-16 max-w-xl mx-auto">
             {t.testimonials.subtitle}
