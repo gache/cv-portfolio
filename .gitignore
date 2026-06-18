@@ -16,3 +16,7 @@ npm-debug.log*
 
 # Vercel
 .vercel
+
+# Generated files
+.playwright-mcp/
+tsconfig.tsbuildinfo

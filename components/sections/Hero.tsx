@@ -17,6 +17,9 @@ export default function Hero() {
   const [titleIndex, setTitleIndex] = useState(0);
 
   useEffect(() => {
+    setTypedLines(Array(6).fill(null));
+    setAnimDone(false);
+
     const timers: ReturnType<typeof setTimeout>[] = [];
     const lines = [
       { text: "$ running qualification suite...", delay: 200 },
@@ -41,7 +44,7 @@ export default function Hero() {
     });
 
     return () => timers.forEach(clearTimeout);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [t.hero.terminalSuffix]);
 
   useEffect(() => {
     const interval = setInterval(() => {

@@ -60,7 +60,10 @@ export default function About() {
                 <div
                   key={step.title}
                   className="flex gap-4 p-4 rounded-lg border border-border/50 bg-surface/50 card-hover"
-                  style={{ animationDelay: `${i * 0.1}s` }}
+                  style={{
+                    opacity: 0,
+                    animation: `slideUpFade 0.4s ease ${i * 0.1}s forwards`,
+                  }}
                 >
                   <div className="flex-shrink-0 w-9 h-9 rounded-md bg-accent/10 border border-accent/20 flex items-center justify-center">
                     <Icon size={16} className="text-accent" />

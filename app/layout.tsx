@@ -34,9 +34,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Erick Franco — QA Automation Engineer & AI Enthusiast",
     description:
-      "Consultant IBM · QA Automation (Playwright, UFT) · IA Générative (Claude 101) · Lille, France.",
+      "IBM Consultant · QA Automation (Playwright, UFT) · Generative AI (Claude 101) · Lille, France.",
     type: "website",
-    locale: "fr_FR",
+    locale: "en_US",
+    alternateLocale: ["fr_FR", "es_ES"],
   },
   twitter: {
     card: "summary_large_image",

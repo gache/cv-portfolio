@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import SectionWrapper from "@/components/ui/SectionWrapper";
-import { X, Send, MessageSquare } from "lucide-react";
+import { X, Send, MessageSquare, Check } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 type Testimonial = { name: string; role: string; company: string; text: string };
@@ -55,6 +55,11 @@ function TestimonialModal({ onClose }: { onClose: () => void }) {
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState("");
+  const [nameError, setNameError] = useState(false);
+  const [roleError, setRoleError] = useState(false);
+  const [textError, setTextError] = useState(false);
+  const [values, setValues] = useState({ name: "", role: "", text: "" });
+  const isFormValid = values.name.trim() !== "" && values.role.trim() !== "" && values.text.trim() !== "";
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -67,6 +72,13 @@ function TestimonialModal({ onClose }: { onClose: () => void }) {
       company: (form.elements.namedItem("company") as HTMLInputElement).value,
       text: (form.elements.namedItem("text") as HTMLTextAreaElement).value,
     };
+    const hasNameErr = !data.name;
+    const hasRoleErr = !data.role;
+    const hasTextErr = !data.text;
+    setNameError(hasNameErr);
+    setRoleError(hasRoleErr);
+    setTextError(hasTextErr);
+    if (hasNameErr || hasRoleErr || hasTextErr) { setSending(false); return; }
     try {
       const res = await fetch("/api/testimonial", {
         method: "POST",
@@ -96,67 +108,99 @@ function TestimonialModal({ onClose }: { onClose: () => void }) {
           {sent ? (
             <div className="text-center py-8">
               <div className="w-12 h-12 rounded-full bg-pass/10 border border-pass/20 flex items-center justify-center mx-auto mb-4">
-                <span className="text-pass text-xl font-bold">✓</span>
+                <Check size={24} className="text-pass" strokeWidth={2.5} />
               </div>
               <p className="font-semibold text-text-primary mb-2">{t.testimonials.thankYouTitle}</p>
               <p className="text-sm text-text-secondary">{t.testimonials.thankYouBody}</p>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} noValidate className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs text-text-secondary mb-1.5 font-mono">
-                    {t.testimonials.labelName}
+                  <label htmlFor="t-name" className="block text-xs text-text-secondary mb-1.5 font-mono">
+                    {t.testimonials.labelName}<span aria-hidden="true" className="text-red-400 ml-0.5">*</span>
                   </label>
                   <input
+                    id="t-name"
                     type="text"
                     name="name"
                     required
-                    className="w-full px-3 py-2.5 rounded-lg bg-elevated border border-border/50 text-sm focus:outline-none focus:border-accent/60 transition-colors"
+                    aria-required="true"
+                    autoComplete="name"
+                    aria-invalid={nameError ? "true" : undefined}
+                    aria-describedby={nameError ? "t-name-error" : undefined}
+                    onChange={(e) => setValues(v => ({ ...v, name: e.target.value }))}
+                    onBlur={(e) => setNameError(!e.target.value)}
+                    className={`w-full px-3 py-3 rounded-lg bg-elevated border text-sm focus:outline-none focus:border-accent transition-colors ${nameError ? "border-red-400/60" : "border-border/50"}`}
                     placeholder={t.testimonials.placeholderName}
                   />
+                  {nameError && (
+                    <p id="t-name-error" role="alert" className="text-xs text-red-400 mt-1">{t.contact.emailRequired}</p>
+                  )}
                 </div>
                 <div>
-                  <label className="block text-xs text-text-secondary mb-1.5 font-mono">
-                    {t.testimonials.labelRole}
+                  <label htmlFor="t-role" className="block text-xs text-text-secondary mb-1.5 font-mono">
+                    {t.testimonials.labelRole}<span aria-hidden="true" className="text-red-400 ml-0.5">*</span>
                   </label>
                   <input
+                    id="t-role"
                     type="text"
                     name="role"
                     required
-                    className="w-full px-3 py-2.5 rounded-lg bg-elevated border border-border/50 text-sm focus:outline-none focus:border-accent/60 transition-colors"
+                    aria-required="true"
+                    autoComplete="organization-title"
+                    aria-invalid={roleError ? "true" : undefined}
+                    aria-describedby={roleError ? "t-role-error" : undefined}
+                    onChange={(e) => setValues(v => ({ ...v, role: e.target.value }))}
+                    onBlur={(e) => setRoleError(!e.target.value)}
+                    className={`w-full px-3 py-3 rounded-lg bg-elevated border text-sm focus:outline-none focus:border-accent transition-colors ${roleError ? "border-red-400/60" : "border-border/50"}`}
                     placeholder={t.testimonials.placeholderRole}
                   />
+                  {roleError && (
+                    <p id="t-role-error" role="alert" className="text-xs text-red-400 mt-1">{t.contact.emailRequired}</p>
+                  )}
                 </div>
               </div>
               <div>
-                <label className="block text-xs text-text-secondary mb-1.5 font-mono">
+                <label htmlFor="t-company" className="block text-xs text-text-secondary mb-1.5 font-mono">
                   {t.testimonials.labelCompany}
                 </label>
                 <input
+                  id="t-company"
                   type="text"
                   name="company"
-                  className="w-full px-3 py-2.5 rounded-lg bg-elevated border border-border/50 text-sm focus:outline-none focus:border-accent/60 transition-colors"
+                  autoComplete="organization"
+                  className="w-full px-3 py-3 rounded-lg bg-elevated border border-border/50 text-sm focus:outline-none focus:border-accent transition-colors"
                   placeholder={t.testimonials.placeholderCompany}
                 />
               </div>
               <div>
-                <label className="block text-xs text-text-secondary mb-1.5 font-mono">
-                  {t.testimonials.labelText}
+                <label htmlFor="t-text" className="block text-xs text-text-secondary mb-1.5 font-mono">
+                  {t.testimonials.labelText}<span aria-hidden="true" className="text-red-400 ml-0.5">*</span>
                 </label>
                 <textarea
+                  id="t-text"
                   name="text"
                   required
+                  aria-required="true"
                   rows={4}
-                  className="w-full px-3 py-2.5 rounded-lg bg-elevated border border-border/50 text-sm focus:outline-none focus:border-accent/60 transition-colors resize-none"
+                  autoComplete="off"
+                  aria-invalid={textError ? "true" : undefined}
+                  aria-describedby={textError ? "t-text-error" : undefined}
+                  onChange={(e) => setValues(v => ({ ...v, text: e.target.value }))}
+                  onBlur={(e) => setTextError(!e.target.value)}
+                  className={`w-full px-3 py-3 rounded-lg bg-elevated border text-sm focus:outline-none focus:border-accent transition-colors resize-none ${textError ? "border-red-400/60" : "border-border/50"}`}
                   placeholder={t.testimonials.placeholderText}
                 />
+                {textError && (
+                  <p id="t-text-error" role="alert" className="text-xs text-red-400 mt-1">{t.contact.emailRequired}</p>
+                )}
               </div>
-              {error && <p className="text-sm text-red-400">{error}</p>}
+              {error && <p role="alert" className="text-sm text-red-400">{error}</p>}
               <button
                 type="submit"
-                disabled={sending}
-                className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-accent text-bg font-medium text-sm hover:bg-accent/90 disabled:opacity-60 transition-all"
+                disabled={sending || !isFormValid}
+                className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-accent text-bg font-medium text-sm hover:bg-accent/90 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
               >
                 {sending ? (
                   <span className="w-4 h-4 border-2 border-bg/30 border-t-bg rounded-full animate-spin" />

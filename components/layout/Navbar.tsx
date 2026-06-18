@@ -1,15 +1,17 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { personal } from "@/data/cv";
 import { useLanguage } from "@/contexts/LanguageContext";
 import type { Lang } from "@/lib/i18n/translations";
+import { Check } from "lucide-react";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const { lang, setLang, t } = useLanguage();
+  const hamburgerRef = useRef<HTMLButtonElement>(null);
 
   const links = [
     { href: "#apropos", label: t.nav.about },
@@ -25,6 +27,18 @@ export default function Navbar() {
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setOpen(false);
+        hamburgerRef.current?.focus();
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [open]);
 
   useEffect(() => {
     const sectionIds = ["apropos", "experience", "skills", "projets", "temoignages", "contact"];
@@ -52,8 +66,15 @@ export default function Navbar() {
       }`}
     >
       <nav className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <a href="#" className="font-mono text-sm font-medium text-accent tracking-wider">
-          EF<span className="cursor-blink text-accent">_</span>
+        <a
+          href="#"
+          aria-label="Erick Franco — home"
+          className="relative flex items-center justify-center w-9 h-9 rounded-lg bg-surface border border-accent/30 hover:border-accent/50 transition-colors duration-200"
+        >
+          <span className="font-mono font-bold text-sm text-accent tracking-tighter select-none">EF</span>
+          <span className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-bg border border-pass/60 flex items-center justify-center">
+            <Check size={8} className="text-pass" strokeWidth={3} />
+          </span>
         </a>
 
         {/* Desktop */}
@@ -82,7 +103,9 @@ export default function Navbar() {
               <button
                 key={l}
                 onClick={() => setLang(l)}
-                className={`px-1.5 py-1 rounded transition-colors uppercase ${
+                aria-label={`Langue : ${l.toUpperCase()}`}
+                aria-pressed={lang === l}
+                className={`px-2.5 py-1.5 rounded transition-colors uppercase min-w-[44px] min-h-[44px] flex items-center justify-center ${
                   lang === l
                     ? "text-accent font-semibold"
                     : "text-muted hover:text-text-secondary"
@@ -105,9 +128,12 @@ export default function Navbar() {
 
         {/* Mobile toggle */}
         <button
-          className="md:hidden text-text-secondary"
+          ref={hamburgerRef}
+          className="md:hidden text-text-secondary p-2.5 rounded-md hover:text-text-primary transition-colors"
           onClick={() => setOpen(!open)}
-          aria-label="Menu"
+          aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
+          aria-expanded={open}
+          aria-controls="mobile-menu"
         >
           <span className="block w-5 h-px bg-current mb-1.5" />
           <span className="block w-5 h-px bg-current mb-1.5" />
@@ -117,7 +143,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="md:hidden bg-surface border-b border-border px-6 py-4 flex flex-col gap-4">
+        <div id="mobile-menu" className="md:hidden bg-surface border-b border-border px-6 py-4 flex flex-col gap-4">
           {links.map((l) => (
             <a
               key={l.href}
@@ -142,7 +168,9 @@ export default function Navbar() {
               <button
                 key={l}
                 onClick={() => setLang(l)}
-                className={`px-1.5 py-1 rounded transition-colors uppercase ${
+                aria-label={`Langue : ${l.toUpperCase()}`}
+                aria-pressed={lang === l}
+                className={`px-2.5 py-1.5 rounded transition-colors uppercase min-w-[44px] min-h-[44px] flex items-center justify-center ${
                   lang === l
                     ? "text-accent font-semibold"
                     : "text-muted hover:text-text-secondary"

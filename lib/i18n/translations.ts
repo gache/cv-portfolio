@@ -19,6 +19,11 @@ export type T = {
     terminalSuffix: string;
     scrollLabel: string;
   };
+  stats: {
+    missions: string;
+    tools: string;
+    languages: string;
+  };
   about: {
     eyebrow: string;
     title: string;
@@ -56,13 +61,17 @@ export type T = {
     labelCompany: string;
     labelMessage: string;
     placeholderName: string;
+    placeholderEmail: string;
     placeholderCompany: string;
     placeholderMessage: string;
     submit: string;
     sending: string;
     sentTitle: string;
     sentBody: string;
+    sendAnother: string;
     errorMsg: string;
+    emailInvalid: string;
+    emailRequired: string;
     availability: string;
     basedIn: string;
     openTo: string;
@@ -114,6 +123,11 @@ export const translations: Record<Lang, T> = {
       seeExperience: "Voir l'expérience",
       terminalSuffix: "3/3 passed · IBM Consultant",
       scrollLabel: "Défiler vers le bas",
+    },
+    stats: {
+      missions: "missions IBM",
+      tools: "outils QA & techno",
+      languages: "langues",
     },
     about: {
       eyebrow: "À propos",
@@ -186,13 +200,17 @@ export const translations: Record<Lang, T> = {
       labelCompany: "Entreprise",
       labelMessage: "Message",
       placeholderName: "Jean Dupont",
+      placeholderEmail: "jean@entreprise.fr",
       placeholderCompany: "Nom de votre entreprise",
       placeholderMessage: "Décrivez votre besoin ou opportunité...",
       submit: "Envoyer le message",
       sending: "Envoi...",
       sentTitle: "Message envoyé !",
       sentBody: "Je vous réponds dans les 24h.",
+      sendAnother: "Envoyer un autre message",
       errorMsg: "Erreur d'envoi. Réessayez ou contactez-moi directement par email.",
+      emailInvalid: "Adresse e-mail invalide.",
+      emailRequired: "Ce champ est obligatoire.",
       availability: "Disponible pour des missions en ESN, des postes en CDI ou des freelances dans les domaines de la QA automatisation, du développement Java/Spring Boot ou de l'intégration IA.",
       basedIn: "Basé à Lille, France",
       openTo: "Open à remote & hybride",
@@ -204,10 +222,10 @@ export const translations: Record<Lang, T> = {
       ctaQuestion: "Vous avez travaillé avec moi ?",
       cta: "Laisser un témoignage",
       modalTitle: "Laisser un témoignage",
-      labelName: "Nom *",
-      labelRole: "Poste *",
+      labelName: "Nom",
+      labelRole: "Poste",
       labelCompany: "Entreprise",
-      labelText: "Témoignage *",
+      labelText: "Témoignage",
       placeholderName: "Marie L.",
       placeholderRole: "Tech Lead",
       placeholderCompany: "Nom de l'entreprise",
@@ -243,6 +261,11 @@ export const translations: Record<Lang, T> = {
       seeExperience: "View experience",
       terminalSuffix: "3/3 passed · IBM Consultant",
       scrollLabel: "Scroll down",
+    },
+    stats: {
+      missions: "IBM missions",
+      tools: "QA tools & tech",
+      languages: "languages",
     },
     about: {
       eyebrow: "About",
@@ -315,13 +338,17 @@ export const translations: Record<Lang, T> = {
       labelCompany: "Company",
       labelMessage: "Message",
       placeholderName: "John Smith",
+      placeholderEmail: "john@company.com",
       placeholderCompany: "Your company name",
       placeholderMessage: "Describe your need or opportunity...",
       submit: "Send message",
       sending: "Sending...",
       sentTitle: "Message sent!",
       sentBody: "I will reply within 24h.",
+      sendAnother: "Send another message",
       errorMsg: "Send error. Please try again or contact me directly by email.",
+      emailInvalid: "Invalid email address.",
+      emailRequired: "This field is required.",
       availability: "Available for consulting missions, permanent positions or freelance in QA automation, Java/Spring Boot development or AI integration.",
       basedIn: "Based in Lille, France",
       openTo: "Open to remote & hybrid",
@@ -333,10 +360,10 @@ export const translations: Record<Lang, T> = {
       ctaQuestion: "Have you worked with me?",
       cta: "Leave a testimonial",
       modalTitle: "Leave a testimonial",
-      labelName: "Name *",
-      labelRole: "Position *",
+      labelName: "Name",
+      labelRole: "Position",
       labelCompany: "Company",
-      labelText: "Testimonial *",
+      labelText: "Testimonial",
       placeholderName: "Marie L.",
       placeholderRole: "Tech Lead",
       placeholderCompany: "Company name",
@@ -372,6 +399,11 @@ export const translations: Record<Lang, T> = {
       seeExperience: "Ver experiencia",
       terminalSuffix: "3/3 passed · IBM Consultant",
       scrollLabel: "Desplazarse hacia abajo",
+    },
+    stats: {
+      missions: "misiones IBM",
+      tools: "herramientas & tech",
+      languages: "idiomas",
     },
     about: {
       eyebrow: "Sobre mí",
@@ -444,13 +476,17 @@ export const translations: Record<Lang, T> = {
       labelCompany: "Empresa",
       labelMessage: "Mensaje",
       placeholderName: "Juan García",
+      placeholderEmail: "juan@empresa.com",
       placeholderCompany: "Nombre de tu empresa",
       placeholderMessage: "Describe tu necesidad u oportunidad...",
       submit: "Enviar mensaje",
       sending: "Enviando...",
       sentTitle: "¡Mensaje enviado!",
       sentBody: "Te responderé en menos de 24h.",
+      sendAnother: "Enviar otro mensaje",
       errorMsg: "Error de envío. Inténtalo de nuevo o contáctame directamente por email.",
+      emailInvalid: "Dirección de correo inválida.",
+      emailRequired: "Este campo es obligatorio.",
       availability: "Disponible para misiones en ESN, puestos en CDI o freelance en QA automation, desarrollo Java/Spring Boot o integración de IA.",
       basedIn: "Basado en Lille, Francia",
       openTo: "Abierto a remoto e híbrido",
@@ -462,10 +498,10 @@ export const translations: Record<Lang, T> = {
       ctaQuestion: "¿Has trabajado conmigo?",
       cta: "Dejar un testimonio",
       modalTitle: "Dejar un testimonio",
-      labelName: "Nombre *",
-      labelRole: "Puesto *",
+      labelName: "Nombre",
+      labelRole: "Puesto",
       labelCompany: "Empresa",
-      labelText: "Testimonio *",
+      labelText: "Testimonio",
       placeholderName: "Marie L.",
       placeholderRole: "Tech Lead",
       placeholderCompany: "Nombre de la empresa",

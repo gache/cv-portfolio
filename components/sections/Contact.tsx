@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { personal } from "@/data/cv";
 import SectionWrapper from "@/components/ui/SectionWrapper";
-import { Mail, Send, MessageSquare } from "lucide-react";
+import { Mail, Send, MessageSquare, Check, RotateCcw } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/ui/Icons";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -12,6 +12,22 @@ export default function Contact() {
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState("");
+  const [emailErrorKey, setEmailErrorKey] = useState<"emailRequired" | "emailInvalid" | null>(null);
+  const emailErrorMsg = emailErrorKey ? t.contact[emailErrorKey] : "";
+  const [nameError, setNameError] = useState(false);
+  const [messageError, setMessageError] = useState(false);
+  const [values, setValues] = useState({ name: "", email: "", message: "" });
+  const isFormValid =
+    values.name.trim() !== "" &&
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email) &&
+    values.message.trim() !== "";
+
+  const validateEmail = (value: string) => {
+    if (!value) { setEmailErrorKey("emailRequired"); return false; }
+    const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+    setEmailErrorKey(valid ? null : "emailInvalid");
+    return valid;
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -24,6 +40,11 @@ export default function Contact() {
       company: (form.elements.namedItem("company") as HTMLInputElement).value,
       message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
     };
+    const hasNameErr = !data.name;
+    const hasMsgErr = !data.message;
+    setNameError(hasNameErr);
+    setMessageError(hasMsgErr);
+    if (hasNameErr || hasMsgErr || !validateEmail(data.email)) { setSending(false); return; }
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
@@ -56,57 +77,98 @@ export default function Contact() {
           <div>
             {sent ? (
               <div className="h-full flex flex-col items-center justify-center text-center p-8 rounded-xl border border-pass/30 bg-pass/5">
-                <span className="text-4xl mb-4">✓</span>
+                <span className="w-12 h-12 rounded-full bg-pass/20 border border-pass/40 flex items-center justify-center mb-4">
+                  <Check size={24} className="text-pass" strokeWidth={2.5} />
+                </span>
                 <p className="font-semibold text-pass mb-2">{t.contact.sentTitle}</p>
-                <p className="text-sm text-text-secondary">{t.contact.sentBody}</p>
+                <p className="text-sm text-text-secondary mb-6">{t.contact.sentBody}</p>
+                <button
+                  onClick={() => { setSent(false); setValues({ name: "", email: "", message: "" }); setEmailErrorKey(null); setNameError(false); setMessageError(false); }}
+                  className="inline-flex items-center gap-2 text-xs text-muted hover:text-text-secondary transition-colors"
+                >
+                  <RotateCcw size={12} />
+                  {t.contact.sendAnother}
+                </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleSubmit} noValidate className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs text-text-secondary mb-1.5 font-mono">{t.contact.labelName}</label>
+                    <label htmlFor="contact-name" className="block text-xs text-text-secondary mb-1.5 font-mono">{t.contact.labelName}<span aria-hidden="true" className="text-red-400 ml-0.5">*</span></label>
                     <input
+                      id="contact-name"
                       type="text"
                       name="name"
                       required
-                      className="w-full px-3 py-2.5 rounded-lg bg-surface border border-border/50 text-sm focus:outline-none focus:border-accent/60 transition-colors"
+                      aria-required="true"
+                      autoComplete="name"
+                      aria-invalid={nameError ? "true" : undefined}
+                      aria-describedby={nameError ? "contact-name-error" : undefined}
+                      onChange={(e) => setValues(v => ({ ...v, name: e.target.value }))}
+                      onBlur={(e) => setNameError(!e.target.value)}
+                      className={`w-full px-3 py-3 rounded-lg bg-surface border text-sm focus:outline-none focus:border-accent transition-colors ${nameError ? "border-red-400/60" : "border-border/50"}`}
                       placeholder={t.contact.placeholderName}
                     />
+                    {nameError && (
+                      <p id="contact-name-error" role="alert" className="text-xs text-red-400 mt-1">{t.contact.emailRequired}</p>
+                    )}
                   </div>
                   <div>
-                    <label className="block text-xs text-text-secondary mb-1.5 font-mono">{t.contact.labelEmail}</label>
+                    <label htmlFor="contact-email" className="block text-xs text-text-secondary mb-1.5 font-mono">{t.contact.labelEmail}<span aria-hidden="true" className="text-red-400 ml-0.5">*</span></label>
                     <input
+                      id="contact-email"
                       type="email"
                       name="email"
                       required
-                      className="w-full px-3 py-2.5 rounded-lg bg-surface border border-border/50 text-sm focus:outline-none focus:border-accent/60 transition-colors"
-                      placeholder="jean@entreprise.fr"
+                      aria-required="true"
+                      autoComplete="email"
+                      aria-invalid={emailErrorKey ? "true" : undefined}
+                      aria-describedby={emailErrorKey ? "contact-email-error" : undefined}
+                      onChange={(e) => setValues(v => ({ ...v, email: e.target.value }))}
+                      onBlur={(e) => validateEmail(e.target.value)}
+                      className={`w-full px-3 py-3 rounded-lg bg-surface border text-sm focus:outline-none focus:border-accent transition-colors ${emailErrorKey ? "border-red-400/60" : "border-border/50"}`}
+                      placeholder={t.contact.placeholderEmail}
                     />
+                    {emailErrorKey && (
+                      <p id="contact-email-error" role="alert" className="text-xs text-red-400 mt-1">{emailErrorMsg}</p>
+                    )}
                   </div>
                 </div>
                 <div>
-                  <label className="block text-xs text-text-secondary mb-1.5 font-mono">{t.contact.labelCompany}</label>
+                  <label htmlFor="contact-company" className="block text-xs text-text-secondary mb-1.5 font-mono">{t.contact.labelCompany}</label>
                   <input
+                    id="contact-company"
                     type="text"
                     name="company"
-                    className="w-full px-3 py-2.5 rounded-lg bg-surface border border-border/50 text-sm focus:outline-none focus:border-accent/60 transition-colors"
+                    autoComplete="organization"
+                    className="w-full px-3 py-3 rounded-lg bg-surface border border-border/50 text-sm focus:outline-none focus:border-accent transition-colors"
                     placeholder={t.contact.placeholderCompany}
                   />
                 </div>
                 <div>
-                  <label className="block text-xs text-text-secondary mb-1.5 font-mono">{t.contact.labelMessage}</label>
+                  <label htmlFor="contact-message" className="block text-xs text-text-secondary mb-1.5 font-mono">{t.contact.labelMessage}<span aria-hidden="true" className="text-red-400 ml-0.5">*</span></label>
                   <textarea
+                    id="contact-message"
                     required
+                    aria-required="true"
                     name="message"
                     rows={4}
-                    className="w-full px-3 py-2.5 rounded-lg bg-surface border border-border/50 text-sm focus:outline-none focus:border-accent/60 transition-colors resize-none"
+                    autoComplete="off"
+                    aria-invalid={messageError ? "true" : undefined}
+                    aria-describedby={messageError ? "contact-message-error" : undefined}
+                    onChange={(e) => setValues(v => ({ ...v, message: e.target.value }))}
+                    onBlur={(e) => setMessageError(!e.target.value)}
+                    className={`w-full px-3 py-3 rounded-lg bg-surface border text-sm focus:outline-none focus:border-accent transition-colors resize-none ${messageError ? "border-red-400/60" : "border-border/50"}`}
                     placeholder={t.contact.placeholderMessage}
                   />
+                  {messageError && (
+                    <p id="contact-message-error" role="alert" className="text-xs text-red-400 mt-1">{t.contact.emailRequired}</p>
+                  )}
                 </div>
                 <button
                   type="submit"
-                  disabled={sending}
-                  className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-accent text-bg font-medium text-sm hover:bg-accent/90 disabled:opacity-60 transition-all duration-200"
+                  disabled={sending || !isFormValid}
+                  className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-accent text-bg font-medium text-sm hover:bg-accent/90 disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-200"
                 >
                   {sending ? (
                     <span className="w-4 h-4 border-2 border-bg/30 border-t-bg rounded-full animate-spin" />
@@ -116,7 +178,7 @@ export default function Contact() {
                   {sending ? t.contact.sending : t.contact.submit}
                 </button>
                 {error && (
-                  <p className="text-sm text-red-400 text-center">{error}</p>
+                  <p role="alert" className="text-sm text-red-400 text-center">{error}</p>
                 )}
               </form>
             )}
