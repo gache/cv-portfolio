@@ -1,43 +1,83 @@
-# Portfolio — Erick Franco Delgado
+# Erick Franco — Portfolio
 
-Portfolio professionnel **QA Automation Engineer & Java Spring Boot Developer**, construit avec Next.js 15 et déployé sur Vercel.
+Portfolio **QA Automation Engineer & AI Enthusiast** — Consultant IBM.
+Construit avec Next.js 15, déployé sur Vercel.
+
+**Live:** https://cv-portfolio-sable.vercel.app
 
 ## Stack
 
-- **Next.js 15** + TypeScript + Tailwind CSS
-- **Framer Motion** — animations scroll-triggered
-- **Resend** — formulaire de contact par email
-- **Playwright** — tests E2E avec pattern Page Object Model
+| Technologie | Usage |
+|---|---|
+| Next.js 15 + TypeScript | Framework, App Router |
+| Tailwind CSS | Design system (tokens custom) |
+| Vercel KV (Upstash Redis) | Témoignages — stockage et modération |
+| Resend | Formulaire de contact + emails de modération |
+| Playwright | Tests E2E |
+| Vercel Analytics | Tracking anonyme |
 
 ## Démarrage
 
 ```bash
 npm install
-cp .env.local.example .env.local  # Ajouter RESEND_API_KEY
-npm run dev
+cp .env.local.example .env.local  # remplir les variables
+npm run dev                         # localhost:3000
 ```
+
+## Variables d'environnement
+
+| Variable | Obligatoire | Description |
+|---|---|---|
+| `RESEND_API_KEY` | ✅ | Clé API Resend — formulaire contact + emails modération |
+| `KV_REST_API_URL` | ✅ | URL Upstash Redis (Vercel KV) |
+| `KV_REST_API_TOKEN` | ✅ | Token Upstash Redis |
+| `KV_REST_API_READ_ONLY_TOKEN` | ✅ | Token lecture seule |
+| `KV_URL` | ✅ | URL Redis complète |
+| `ADMIN_SECRET` | ✅ | Secret pour l'API admin des témoignages |
+| `NEXT_PUBLIC_BASE_URL` | ✅ | URL de production (ex: https://cv-portfolio-sable.vercel.app) |
+
+## Fonctionnalités
+
+**Multilingue** — FR / EN / ES via `lib/i18n/translations.ts`. Tout le contenu est dans `data/cv.ts`.
+
+**Témoignages avec modération**
+1. Visiteur soumet un témoignage via le formulaire
+2. Email reçu à `erickfrancodelgado@hotmail.com` avec liens Approuver / Rejeter (valides 72h)
+3. Approbation → stocké dans KV → visible sur le site
+
+**API admin témoignages** — protégée par `Authorization: Bearer <ADMIN_SECRET>` :
+```bash
+# Lister les témoignages approuvés
+curl -H "Authorization: Bearer $ADMIN_SECRET" \
+  https://cv-portfolio-sable.vercel.app/api/admin/testimonials
+
+# Supprimer par index
+curl -X DELETE -H "Authorization: Bearer $ADMIN_SECRET" \
+  "https://cv-portfolio-sable.vercel.app/api/admin/testimonials?index=0"
+
+# Supprimer tous
+curl -X DELETE -H "Authorization: Bearer $ADMIN_SECRET" \
+  "https://cv-portfolio-sable.vercel.app/api/admin/testimonials?all=true"
+```
+
+## Contenu
+
+Tout le contenu est centralisé dans [`data/cv.ts`](data/cv.ts) — expériences, skills, projets, certifications.
+Les traductions sont dans [`lib/i18n/translations.ts`](lib/i18n/translations.ts).
 
 ## Tests E2E
 
 ```bash
-npx playwright install chromium   # première fois seulement
-npm run test                       # lancer les tests
+npx playwright install chromium   # première fois
+npm run test                       # lancer les tests (serveur dev requis)
 npm run test:ui                    # mode interactif
 npm run test:report                # rapport HTML
 ```
 
-Structure POM dans `tests/e2e/pages/`.
+## Commandes
 
-## Variables d'environnement
-
-| Variable | Description |
-|----------|-------------|
-| `RESEND_API_KEY` | Clé API Resend pour le formulaire de contact |
-
-## Déploiement
-
-Connecter le repo à [Vercel](https://vercel.com) et ajouter `RESEND_API_KEY` dans les variables d'environnement du projet.
-
-## Contenu
-
-Toutes les données (expériences, skills, projets, certifications) sont centralisées dans `data/cv.ts`.
+```bash
+npm run dev      # Dev server localhost:3000
+npm run build    # Build production
+npm run lint     # ESLint
+```
