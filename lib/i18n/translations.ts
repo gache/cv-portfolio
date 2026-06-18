@@ -6,6 +6,7 @@ export type T = {
     experience: string;
     skills: string;
     projects: string;
+    testimonials: string;
     contact: string;
     downloadCv: string;
   };
@@ -86,6 +87,7 @@ export type T = {
     thankYouTitle: string;
     thankYouBody: string;
     errorMsg: string;
+    emptyState: string;
   };
   footer: {
     available: string;
@@ -100,6 +102,7 @@ export const translations: Record<Lang, T> = {
       experience: "Expérience",
       skills: "Skills",
       projects: "Projets",
+      testimonials: "Témoignages",
       contact: "Contact",
       downloadCv: "Télécharger CV",
     },
@@ -214,6 +217,7 @@ export const translations: Record<Lang, T> = {
       thankYouTitle: "Merci pour ton témoignage !",
       thankYouBody: "Il sera ajouté au site prochainement.",
       errorMsg: "Erreur d'envoi. Réessayez.",
+      emptyState: "Les premiers témoignages arrivent bientôt.",
     },
     footer: {
       available: "Disponible · Lille, France · Remote OK",
@@ -227,6 +231,7 @@ export const translations: Record<Lang, T> = {
       experience: "Experience",
       skills: "Skills",
       projects: "Projects",
+      testimonials: "Testimonials",
       contact: "Contact",
       downloadCv: "Download CV",
     },
@@ -341,6 +346,7 @@ export const translations: Record<Lang, T> = {
       thankYouTitle: "Thank you for your testimonial!",
       thankYouBody: "It will be added to the site shortly.",
       errorMsg: "Send error. Please try again.",
+      emptyState: "First testimonials coming soon.",
     },
     footer: {
       available: "Available · Lille, France · Remote OK",
@@ -354,6 +360,7 @@ export const translations: Record<Lang, T> = {
       experience: "Experiencia",
       skills: "Skills",
       projects: "Proyectos",
+      testimonials: "Testimonios",
       contact: "Contacto",
       downloadCv: "Descargar CV",
     },
@@ -468,6 +475,7 @@ export const translations: Record<Lang, T> = {
       thankYouTitle: "¡Gracias por tu testimonio!",
       thankYouBody: "Se añadirá al sitio en breve.",
       errorMsg: "Error de envío. Inténtalo de nuevo.",
+      emptyState: "Los primeros testimonios llegan pronto.",
     },
     footer: {
       available: "Disponible · Lille, Francia · Remote OK",

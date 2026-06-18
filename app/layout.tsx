@@ -17,31 +17,31 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Erick Franco — QA Automation Engineer & Java Spring Boot Developer",
+  title: "Erick Franco — QA Automation Engineer & AI Enthusiast",
   description:
-    "Plus de 10 ans d'expérience en IT. Spécialisé en automatisation de tests (Playwright, UFT), Java Spring Boot, APIs REST et IA Générative. Basé à Lille, France.",
+    "Consultant IT chez IBM. Expert en QA Automation (Playwright, UFT) et IA Générative (certifié Claude 101 — Anthropic). Background Java/Spring Boot & APIs REST. Basé à Lille, France.",
   keywords: [
     "QA Automation Engineer France",
     "Test Automation Engineer Lille",
-    "Java Spring Boot Developer",
     "Playwright Automation Engineer",
-    "AI Engineer France",
+    "UFT QA Engineer",
+    "Claude 101 Anthropic",
+    "AI Enthusiast IBM",
     "Testeur Automaticien Lille",
-    "Développeur Full Stack Java Angular",
     "Erick Franco",
   ],
   authors: [{ name: "Erick Franco" }],
   openGraph: {
-    title: "Erick Franco — QA Automation Engineer & Java Spring Boot Developer",
+    title: "Erick Franco — QA Automation Engineer & AI Enthusiast",
     description:
-      "10+ ans d'expérience IT. Automatisation de tests, Java/Spring Boot, Angular, IA Générative.",
+      "Consultant IBM · QA Automation (Playwright, UFT) · IA Générative (Claude 101) · Lille, France.",
     type: "website",
     locale: "fr_FR",
   },
   twitter: {
     card: "summary_large_image",
     title: "Erick Franco — QA Automation Engineer",
-    description: "10+ ans IT · QA Automation · Java Spring Boot · IA",
+    description: "IBM Consultant · QA Automation · Claude 101 · Playwright · UFT",
   },
 };
 

@@ -7,6 +7,49 @@ import { useLanguage } from "@/contexts/LanguageContext";
 
 type Testimonial = { name: string; role: string; company: string; text: string };
 
+function QuoteIcon() {
+  return (
+    <svg width="28" height="22" viewBox="0 0 36 28" fill="none" aria-hidden="true">
+      <path
+        d="M0 28V16.8C0 7.467 5.6 1.867 16.8 0L18.667 2.8C12.133 4.367 8.867 7.933 8.4 13.067H15.867V28H0ZM21.467 28V16.8C21.467 7.467 27.067 1.867 38.267 0L40.133 2.8C33.6 4.367 30.333 7.933 29.867 13.067H37.333V28H21.467Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
+
+function TestimonialCard({ testimonial, index }: { testimonial: Testimonial; index: number }) {
+  return (
+    <div
+      className="group rounded-xl border border-border/30 bg-surface/60 p-6 flex flex-col gap-5 hover:-translate-y-1 hover:border-accent/30 hover:shadow-[0_8px_32px_rgba(129,140,248,0.08)] transition-all duration-300"
+      style={{ animation: `slideUpFade 0.4s ease ${index * 100}ms both` }}
+    >
+      <div className="text-accent/20 group-hover:text-accent/40 transition-colors duration-300">
+        <QuoteIcon />
+      </div>
+
+      <p className="text-sm text-text-secondary leading-relaxed flex-1">
+        {testimonial.text}
+      </p>
+
+      <div className="pt-4 border-t border-border/20 flex items-center gap-3">
+        <div className="w-10 h-10 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0">
+          <span className="text-sm font-bold text-accent font-mono">
+            {testimonial.name.charAt(0).toUpperCase()}
+          </span>
+        </div>
+        <div>
+          <p className="text-sm font-semibold text-text-primary leading-tight">{testimonial.name}</p>
+          <p className="text-xs text-muted mt-0.5">
+            {testimonial.role}
+            {testimonial.company ? ` · ${testimonial.company}` : ""}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function TestimonialModal({ onClose }: { onClose: () => void }) {
   const { t } = useLanguage();
   const [sending, setSending] = useState(false);
@@ -42,7 +85,6 @@ function TestimonialModal({ onClose }: { onClose: () => void }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-bg/80 backdrop-blur-sm">
       <div className="w-full max-w-lg rounded-xl border border-border bg-surface shadow-2xl animate-fade-in">
-        {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-border/50">
           <h3 className="font-semibold">{t.testimonials.modalTitle}</h3>
           <button onClick={onClose} className="text-muted hover:text-text-primary transition-colors">
@@ -50,19 +92,22 @@ function TestimonialModal({ onClose }: { onClose: () => void }) {
           </button>
         </div>
 
-        {/* Body */}
         <div className="p-6">
           {sent ? (
             <div className="text-center py-8">
-              <span className="text-4xl mb-4 block">✓</span>
-              <p className="font-semibold text-pass mb-2">{t.testimonials.thankYouTitle}</p>
+              <div className="w-12 h-12 rounded-full bg-pass/10 border border-pass/20 flex items-center justify-center mx-auto mb-4">
+                <span className="text-pass text-xl font-bold">✓</span>
+              </div>
+              <p className="font-semibold text-text-primary mb-2">{t.testimonials.thankYouTitle}</p>
               <p className="text-sm text-text-secondary">{t.testimonials.thankYouBody}</p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs text-text-secondary mb-1.5 font-mono">{t.testimonials.labelName}</label>
+                  <label className="block text-xs text-text-secondary mb-1.5 font-mono">
+                    {t.testimonials.labelName}
+                  </label>
                   <input
                     type="text"
                     name="name"
@@ -72,7 +117,9 @@ function TestimonialModal({ onClose }: { onClose: () => void }) {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs text-text-secondary mb-1.5 font-mono">{t.testimonials.labelRole}</label>
+                  <label className="block text-xs text-text-secondary mb-1.5 font-mono">
+                    {t.testimonials.labelRole}
+                  </label>
                   <input
                     type="text"
                     name="role"
@@ -83,7 +130,9 @@ function TestimonialModal({ onClose }: { onClose: () => void }) {
                 </div>
               </div>
               <div>
-                <label className="block text-xs text-text-secondary mb-1.5 font-mono">{t.testimonials.labelCompany}</label>
+                <label className="block text-xs text-text-secondary mb-1.5 font-mono">
+                  {t.testimonials.labelCompany}
+                </label>
                 <input
                   type="text"
                   name="company"
@@ -92,7 +141,9 @@ function TestimonialModal({ onClose }: { onClose: () => void }) {
                 />
               </div>
               <div>
-                <label className="block text-xs text-text-secondary mb-1.5 font-mono">{t.testimonials.labelText}</label>
+                <label className="block text-xs text-text-secondary mb-1.5 font-mono">
+                  {t.testimonials.labelText}
+                </label>
                 <textarea
                   name="text"
                   required
@@ -134,33 +185,32 @@ export default function Testimonials({ initialTestimonials }: { initialTestimoni
             <MessageSquare size={12} />
             {t.testimonials.eyebrow}
           </p>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">{t.testimonials.title}</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
+            {t.testimonials.title}
+          </h2>
           <p className="text-text-secondary text-center mb-16 max-w-xl mx-auto">
             {t.testimonials.subtitle}
           </p>
 
-          <div className="grid md:grid-cols-3 gap-6 mb-12">
-            {initialTestimonials.map((testimonial, i) => (
-              <div
-                key={`${testimonial.name}-${i}`}
-                className="rounded-xl border border-border/50 bg-surface p-6 flex flex-col gap-4 card-hover"
-              >
-                <span className="text-3xl text-accent/40 font-serif leading-none select-none">&ldquo;</span>
-                <p className="text-sm text-text-secondary leading-relaxed flex-1 -mt-2">{testimonial.text}</p>
-                <div className="pt-4 border-t border-border/30 flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0">
-                    <span className="text-sm font-bold text-accent">{testimonial.name.charAt(0)}</span>
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold">{testimonial.name}</p>
-                    <p className="text-xs text-muted">{testimonial.role} · {testimonial.company}</p>
-                  </div>
-                </div>
+          {initialTestimonials.length > 0 ? (
+            <div className="grid md:grid-cols-3 gap-6 mb-12">
+              {initialTestimonials.map((testimonial, i) => (
+                <TestimonialCard
+                  key={`${testimonial.name}-${i}`}
+                  testimonial={testimonial}
+                  index={i}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12 mb-12">
+              <div className="w-14 h-14 rounded-full bg-accent/5 border border-border/30 flex items-center justify-center mx-auto mb-4">
+                <MessageSquare size={20} className="text-accent/30" />
               </div>
-            ))}
-          </div>
+              <p className="text-sm text-muted">{t.testimonials.emptyState}</p>
+            </div>
+          )}
 
-          {/* CTA */}
           <div className="text-center">
             <p className="text-sm text-text-secondary mb-4">{t.testimonials.ctaQuestion}</p>
             <button

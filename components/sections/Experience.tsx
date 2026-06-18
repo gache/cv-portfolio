@@ -66,11 +66,11 @@ function EmployerCard({
   const isCurrent = employer === "IBM";
 
   const borderClass = prominent
-    ? "border-accent/60 shadow-[0_0_20px_rgba(129,140,248,0.12)]"
-    : "border-border/50";
+    ? "border-accent/60 shadow-[0_0_20px_rgba(129,140,248,0.12)] hover:shadow-[0_0_30px_rgba(129,140,248,0.2)]"
+    : "border-border/50 hover:border-accent/35 hover:shadow-[0_0_16px_rgba(129,140,248,0.08)]";
 
   return (
-    <div className={`rounded-xl border bg-surface/60 overflow-hidden transition-all duration-200 ${borderClass}`}>
+    <div className={`rounded-xl border bg-surface/60 overflow-hidden transition-all duration-250 hover:-translate-y-0.5 ${borderClass}`}>
       {/* Employer header */}
       <button
         onClick={() => setCollapsed((v) => !v)}

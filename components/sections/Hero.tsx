@@ -8,27 +8,40 @@ import { Highlight } from "@/components/ui/Highlight";
 
 const HERO_KEYWORDS = ["IBM", "QA Automation", "Claude 101", "Anthropic", "Playwright", "UFT"];
 
+const LINE_COLORS = ["text-muted", "text-pass", "text-pass", "text-pass", "", "text-accent"];
+
 export default function Hero() {
   const { t } = useLanguage();
-  const [visibleLines, setVisibleLines] = useState<number[]>([]);
+  const [typedLines, setTypedLines] = useState<(string | null)[]>(Array(6).fill(null));
+  const [animDone, setAnimDone] = useState(false);
   const [titleIndex, setTitleIndex] = useState(0);
 
-  const terminalLines = [
-    { text: "$ running qualification suite...", delay: 200, color: "text-muted" },
-    { text: "✓ QA Automation Engineer", delay: 700, color: "text-pass" },
-    { text: "✓ AI Enthusiast — Claude 101", delay: 1200, color: "text-pass" },
-    { text: "✓ Java/Spring Boot — background", delay: 1700, color: "text-pass" },
-    { text: "", delay: 2000, color: "" },
-    { text: t.hero.terminalSuffix, delay: 2200, color: "text-accent" },
-  ];
-
   useEffect(() => {
-    terminalLines.forEach((line, i) => {
-      setTimeout(() => {
-        setVisibleLines((prev) => [...prev, i]);
-      }, line.delay);
+    const timers: ReturnType<typeof setTimeout>[] = [];
+    const lines = [
+      { text: "$ running qualification suite...", delay: 200 },
+      { text: "✓ QA Automation Engineer",         delay: 700 },
+      { text: "✓ AI Enthusiast — Claude 101",     delay: 1200 },
+      { text: "✓ Java/Spring Boot — background",  delay: 1700 },
+      { text: "",                                  delay: 2000 },
+      { text: t.hero.terminalSuffix,               delay: 2200 },
+    ];
+
+    lines.forEach((line, i) => {
+      timers.push(setTimeout(() => {
+        setTypedLines(prev => { const n = [...prev]; n[i] = ""; return n; });
+      }, line.delay));
+
+      [...line.text].forEach((_, ci) => {
+        timers.push(setTimeout(() => {
+          setTypedLines(prev => { const n = [...prev]; n[i] = line.text.slice(0, ci + 1); return n; });
+          if (i === lines.length - 1 && ci === line.text.length - 1) setAnimDone(true);
+        }, line.delay + (ci + 1) * 22));
+      });
     });
-  }, []);
+
+    return () => timers.forEach(clearTimeout);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -91,7 +104,7 @@ export default function Hero() {
               <a
                 href="#experience"
                 aria-label={t.hero.seeExperience}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md text-sm font-medium text-text-secondary hover:text-text-primary transition-colors duration-200"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md text-sm font-medium border border-border hover:border-accent/50 hover:text-accent text-text-secondary transition-all duration-200"
               >
                 {t.hero.seeExperience}
                 <ArrowDown size={16} />
@@ -115,25 +128,18 @@ export default function Hero() {
 
               {/* Terminal body */}
               <div className="p-5 font-mono text-sm min-h-[180px]">
-                {terminalLines.map((line, i) => (
-                  <div
-                    key={i}
-                    className={`transition-opacity duration-300 leading-relaxed ${
-                      visibleLines.includes(i) ? "opacity-100" : "opacity-0"
-                    } ${line.color}`}
-                  >
-                    {line.text || <br />}
+                {LINE_COLORS.map((color, i) => (
+                  <div key={i} className={`leading-relaxed min-h-[1.4em] ${color}`}>
+                    {typedLines[i] !== null ? (typedLines[i] || " ") : ""}
                   </div>
                 ))}
-                {visibleLines.length < terminalLines.length && (
-                  <span className="cursor-blink text-accent">▋</span>
-                )}
+                <span className={`cursor-blink text-accent ${animDone ? "opacity-60" : ""}`}>▋</span>
               </div>
             </div>
 
             {/* Tech badges */}
             <div className="flex flex-wrap gap-2 mt-4">
-              {["Playwright", "Claude AI", "UFT", "Spring Boot", "Angular", "CI/CD"].map((badge) => (
+              {["Playwright", "Claude AI", "UFT", "CI/CD", "Spring Boot", "Angular"].map((badge) => (
                 <span
                   key={badge}
                   className="px-2.5 py-1 rounded-md text-xs font-mono bg-elevated/80 text-text-secondary border border-border/50"

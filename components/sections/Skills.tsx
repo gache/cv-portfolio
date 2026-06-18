@@ -59,14 +59,14 @@ export default function Skills() {
               return (
                 <span
                   key={skill.name}
-                  className={`px-4 py-2 rounded-lg text-sm font-mono ${
+                  className={`px-4 py-2 rounded-lg text-sm font-mono transition-all duration-200 ${
                     isCore
-                      ? "bg-accent/15 border border-accent/40 text-accent font-medium"
-                      : "bg-surface border border-border/50 text-text-secondary"
+                      ? "bg-accent/15 border border-accent/40 text-accent font-medium hover:bg-accent/25 hover:shadow-[0_0_12px_rgba(129,140,248,0.25)] hover:-translate-y-0.5"
+                      : "bg-surface border border-border/50 text-text-secondary hover:border-accent/30 hover:text-text-primary hover:-translate-y-0.5"
                   }`}
                   style={{
                     opacity: 0,
-                    animation: `fadeIn 0.25s ease ${i * 45}ms forwards`,
+                    animation: `slideUpFade 0.3s ease ${i * 40}ms forwards`,
                   }}
                 >
                   {skill.name}

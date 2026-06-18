@@ -16,6 +16,7 @@ export default function Navbar() {
     { href: "#experience", label: t.nav.experience },
     { href: "#skills", label: t.nav.skills },
     { href: "#projets", label: t.nav.projects },
+    { href: "#temoignages", label: t.nav.testimonials },
     { href: "#contact", label: t.nav.contact },
   ];
 
@@ -26,7 +27,7 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    const sectionIds = ["apropos", "experience", "skills", "projets", "contact"];
+    const sectionIds = ["apropos", "experience", "skills", "projets", "temoignages", "contact"];
     const onScroll = () => {
       const threshold = 80;
       let current = "";
@@ -57,16 +58,22 @@ export default function Navbar() {
 
         {/* Desktop */}
         <ul className="hidden md:flex items-center gap-8">
-          {links.map((l) => (
-            <li key={l.href}>
-              <a
-                href={l.href}
-                className={`text-sm transition-colors duration-200 ${activeSection && l.href === '#' + activeSection ? 'text-accent font-semibold' : 'text-text-secondary hover:text-text-primary'}`}
-              >
-                {l.label}
-              </a>
-            </li>
-          ))}
+          {links.map((l) => {
+            const isActive = activeSection && l.href === '#' + activeSection;
+            return (
+              <li key={l.href} className="relative pb-1">
+                <a
+                  href={l.href}
+                  className={`text-sm transition-colors duration-200 ${isActive ? 'text-accent font-semibold' : 'text-text-secondary hover:text-text-primary'}`}
+                >
+                  {l.label}
+                </a>
+                <span
+                  className={`absolute bottom-0 left-0 w-full h-0.5 bg-accent rounded-full origin-left transition-transform duration-300 ease-out ${isActive ? 'scale-x-100' : 'scale-x-0'}`}
+                />
+              </li>
+            );
+          })}
         </ul>
 
         <div className="hidden md:flex items-center gap-2">

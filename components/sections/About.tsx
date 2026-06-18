@@ -49,6 +49,7 @@ export default function About() {
                 </span>
               ))}
             </div>
+
           </div>
 
           {/* Right — journey */}

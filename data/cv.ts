@@ -302,23 +302,4 @@ export const certifications = [
 
 export const blogPosts: never[] = [];
 
-export const testimonials = [
-  {
-    name: "Marie L.",
-    role: "Tech Lead",
-    company: "Grand Compte — Bancaire",
-    text: "Erick est un collègue fiable et rigoureux. Sa maîtrise de l'automatisation des tests et sa capacité à s'adapter rapidement à nos environnements complexes ont été un vrai atout pour l'équipe.",
-  },
-  {
-    name: "Thomas B.",
-    role: "Product Owner",
-    company: "Grand Compte — E-commerce",
-    text: "Erick a su traduire nos critères d'acceptation en tests automatisés pertinents. Sa communication proactive et son sens de la qualité nous ont permis de livrer en confiance.",
-  },
-  {
-    name: "Sophie M.",
-    role: "Développeuse Full Stack",
-    company: "Grand Compte — Retail",
-    text: "Travailler avec Erick, c'est avoir quelqu'un qui pense qualité dès le début du sprint. Ses retours sur les cas limites m'ont souvent évité des bugs en production.",
-  },
-];
+export const testimonials: { name: string; role: string; company: string; text: string }[] = [];
