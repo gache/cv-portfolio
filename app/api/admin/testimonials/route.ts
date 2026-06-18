@@ -1,4 +1,5 @@
 import { kv } from "@vercel/kv";
+import { timingSafeEqual } from "crypto";
 import { NextRequest, NextResponse } from "next/server";
 
 const ADMIN_SECRET = process.env.ADMIN_SECRET;
@@ -8,8 +9,12 @@ function unauthorized() {
 }
 
 function checkAuth(req: NextRequest) {
-  const secret = req.nextUrl.searchParams.get("secret");
-  return ADMIN_SECRET && secret === ADMIN_SECRET;
+  if (!ADMIN_SECRET) return false;
+  const header = req.headers.get("authorization") ?? "";
+  const provided = header.startsWith("Bearer ") ? header.slice(7) : "";
+  const a = Buffer.from(provided);
+  const b = Buffer.from(ADMIN_SECRET);
+  return a.length === b.length && timingSafeEqual(a, b);
 }
 
 // GET /api/admin/testimonials?secret=xxx — list all approved
