@@ -72,6 +72,7 @@ export type T = {
     errorMsg: string;
     emailInvalid: string;
     emailRequired: string;
+    errorsTitle: string;
     availability: string;
     basedIn: string;
     openTo: string;
@@ -211,6 +212,7 @@ export const translations: Record<Lang, T> = {
       errorMsg: "Erreur d'envoi. Réessayez ou contactez-moi directement par email.",
       emailInvalid: "Adresse e-mail invalide.",
       emailRequired: "Ce champ est obligatoire.",
+      errorsTitle: "Veuillez corriger les erreurs suivantes :",
       availability: "Disponible pour des missions en ESN, des postes en CDI ou des freelances dans les domaines de la QA automatisation, du développement Java/Spring Boot ou de l'intégration IA.",
       basedIn: "Basé à Lille, France",
       openTo: "Open à remote & hybride",
@@ -349,6 +351,7 @@ export const translations: Record<Lang, T> = {
       errorMsg: "Send error. Please try again or contact me directly by email.",
       emailInvalid: "Invalid email address.",
       emailRequired: "This field is required.",
+      errorsTitle: "Please correct the following errors:",
       availability: "Available for consulting missions, permanent positions or freelance in QA automation, Java/Spring Boot development or AI integration.",
       basedIn: "Based in Lille, France",
       openTo: "Open to remote & hybrid",
@@ -487,6 +490,7 @@ export const translations: Record<Lang, T> = {
       errorMsg: "Error de envío. Inténtalo de nuevo o contáctame directamente por email.",
       emailInvalid: "Dirección de correo inválida.",
       emailRequired: "Este campo es obligatorio.",
+      errorsTitle: "Por favor corrija los siguientes errores:",
       availability: "Disponible para misiones en ESN, puestos en CDI o freelance en QA automation, desarrollo Java/Spring Boot o integración de IA.",
       basedIn: "Basado en Lille, Francia",
       openTo: "Abierto a remoto e híbrido",

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { personal } from "@/data/cv";
 import SectionWrapper from "@/components/ui/SectionWrapper";
 import { Mail, Send, MessageSquare, Check, RotateCcw } from "lucide-react";
@@ -17,6 +17,10 @@ export default function Contact() {
   const [nameError, setNameError] = useState(false);
   const [messageError, setMessageError] = useState(false);
   const [values, setValues] = useState({ name: "", email: "", message: "" });
+  const [submitAttempted, setSubmitAttempted] = useState(false);
+  const nameRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const messageRef = useRef<HTMLTextAreaElement>(null);
   const isFormValid =
     values.name.trim() !== "" &&
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email) &&
@@ -42,9 +46,17 @@ export default function Contact() {
     };
     const hasNameErr = !data.name;
     const hasMsgErr = !data.message;
+    const emailOk = validateEmail(data.email);
     setNameError(hasNameErr);
     setMessageError(hasMsgErr);
-    if (hasNameErr || hasMsgErr || !validateEmail(data.email)) { setSending(false); return; }
+    if (hasNameErr || hasMsgErr || !emailOk) {
+      setSending(false);
+      setSubmitAttempted(true);
+      if (hasNameErr) nameRef.current?.focus();
+      else if (!emailOk) emailRef.current?.focus();
+      else messageRef.current?.focus();
+      return;
+    }
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
@@ -83,7 +95,7 @@ export default function Contact() {
                 <p className="font-semibold text-pass mb-2">{t.contact.sentTitle}</p>
                 <p className="text-sm text-text-secondary mb-6">{t.contact.sentBody}</p>
                 <button
-                  onClick={() => { setSent(false); setValues({ name: "", email: "", message: "" }); setEmailErrorKey(null); setNameError(false); setMessageError(false); }}
+                  onClick={() => { setSent(false); setValues({ name: "", email: "", message: "" }); setEmailErrorKey(null); setNameError(false); setMessageError(false); setSubmitAttempted(false); }}
                   className="inline-flex items-center gap-2 text-xs text-muted hover:text-text-secondary transition-colors"
                 >
                   <RotateCcw size={12} />
@@ -92,10 +104,21 @@ export default function Contact() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} noValidate className="space-y-4">
+                {submitAttempted && (nameError || !!emailErrorKey || messageError) && (
+                  <div role="alert" aria-live="assertive" className="rounded-lg border border-red-400/30 bg-red-400/5 px-4 py-3">
+                    <p className="text-xs font-medium text-red-400 mb-1.5">{t.contact.errorsTitle}</p>
+                    <ul className="space-y-1">
+                      {nameError && <li className="text-xs text-red-400/80"><a href="#contact-name" className="underline underline-offset-2 hover:text-red-400 transition-colors">{t.contact.labelName}</a> — {t.contact.emailRequired}</li>}
+                      {emailErrorKey && <li className="text-xs text-red-400/80"><a href="#contact-email" className="underline underline-offset-2 hover:text-red-400 transition-colors">{t.contact.labelEmail}</a> — {emailErrorMsg}</li>}
+                      {messageError && <li className="text-xs text-red-400/80"><a href="#contact-message" className="underline underline-offset-2 hover:text-red-400 transition-colors">{t.contact.labelMessage}</a> — {t.contact.emailRequired}</li>}
+                    </ul>
+                  </div>
+                )}
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label htmlFor="contact-name" className="block text-xs text-text-secondary mb-1.5 font-mono">{t.contact.labelName}<span aria-hidden="true" className="text-red-400 ml-0.5">*</span></label>
                     <input
+                      ref={nameRef}
                       id="contact-name"
                       type="text"
                       name="name"
@@ -116,6 +139,7 @@ export default function Contact() {
                   <div>
                     <label htmlFor="contact-email" className="block text-xs text-text-secondary mb-1.5 font-mono">{t.contact.labelEmail}<span aria-hidden="true" className="text-red-400 ml-0.5">*</span></label>
                     <input
+                      ref={emailRef}
                       id="contact-email"
                       type="email"
                       name="email"
@@ -148,6 +172,7 @@ export default function Contact() {
                 <div>
                   <label htmlFor="contact-message" className="block text-xs text-text-secondary mb-1.5 font-mono">{t.contact.labelMessage}<span aria-hidden="true" className="text-red-400 ml-0.5">*</span></label>
                   <textarea
+                    ref={messageRef}
                     id="contact-message"
                     required
                     aria-required="true"

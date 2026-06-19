@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import SectionWrapper from "@/components/ui/SectionWrapper";
 import { X, Send, MessageSquare, Check } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -59,6 +59,10 @@ function TestimonialModal({ onClose }: { onClose: () => void }) {
   const [roleError, setRoleError] = useState(false);
   const [textError, setTextError] = useState(false);
   const [values, setValues] = useState({ name: "", role: "", text: "" });
+  const [submitAttempted, setSubmitAttempted] = useState(false);
+  const tNameRef = useRef<HTMLInputElement>(null);
+  const tRoleRef = useRef<HTMLInputElement>(null);
+  const tTextRef = useRef<HTMLTextAreaElement>(null);
   const isFormValid = values.name.trim() !== "" && values.role.trim() !== "" && values.text.trim() !== "";
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -78,7 +82,14 @@ function TestimonialModal({ onClose }: { onClose: () => void }) {
     setNameError(hasNameErr);
     setRoleError(hasRoleErr);
     setTextError(hasTextErr);
-    if (hasNameErr || hasRoleErr || hasTextErr) { setSending(false); return; }
+    if (hasNameErr || hasRoleErr || hasTextErr) {
+      setSending(false);
+      setSubmitAttempted(true);
+      if (hasNameErr) tNameRef.current?.focus();
+      else if (hasRoleErr) tRoleRef.current?.focus();
+      else tTextRef.current?.focus();
+      return;
+    }
     try {
       const res = await fetch("/api/testimonial", {
         method: "POST",
@@ -115,12 +126,23 @@ function TestimonialModal({ onClose }: { onClose: () => void }) {
             </div>
           ) : (
             <form onSubmit={handleSubmit} noValidate className="space-y-4">
+              {submitAttempted && (nameError || roleError || textError) && (
+                <div role="alert" aria-live="assertive" className="rounded-lg border border-red-400/30 bg-red-400/5 px-4 py-3">
+                  <p className="text-xs font-medium text-red-400 mb-1.5">{t.contact.errorsTitle}</p>
+                  <ul className="space-y-1">
+                    {nameError && <li className="text-xs text-red-400/80"><a href="#t-name" className="underline underline-offset-2 hover:text-red-400 transition-colors">{t.testimonials.labelName}</a> — {t.contact.emailRequired}</li>}
+                    {roleError && <li className="text-xs text-red-400/80"><a href="#t-role" className="underline underline-offset-2 hover:text-red-400 transition-colors">{t.testimonials.labelRole}</a> — {t.contact.emailRequired}</li>}
+                    {textError && <li className="text-xs text-red-400/80"><a href="#t-text" className="underline underline-offset-2 hover:text-red-400 transition-colors">{t.testimonials.labelText}</a> — {t.contact.emailRequired}</li>}
+                  </ul>
+                </div>
+              )}
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label htmlFor="t-name" className="block text-xs text-text-secondary mb-1.5 font-mono">
                     {t.testimonials.labelName}<span aria-hidden="true" className="text-red-400 ml-0.5">*</span>
                   </label>
                   <input
+                    ref={tNameRef}
                     id="t-name"
                     type="text"
                     name="name"
@@ -143,6 +165,7 @@ function TestimonialModal({ onClose }: { onClose: () => void }) {
                     {t.testimonials.labelRole}<span aria-hidden="true" className="text-red-400 ml-0.5">*</span>
                   </label>
                   <input
+                    ref={tRoleRef}
                     id="t-role"
                     type="text"
                     name="role"
@@ -179,6 +202,7 @@ function TestimonialModal({ onClose }: { onClose: () => void }) {
                   {t.testimonials.labelText}<span aria-hidden="true" className="text-red-400 ml-0.5">*</span>
                 </label>
                 <textarea
+                  ref={tTextRef}
                   id="t-text"
                   name="text"
                   required
