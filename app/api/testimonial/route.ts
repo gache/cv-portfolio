@@ -93,7 +93,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ success: true });
   } catch (err) {
-    console.error(err);
+    console.error("[testimonial]", err instanceof Error ? err.message : "unknown error");
     return NextResponse.json({ error: "Erreur serveur" }, { status: 500 });
   }
 }
