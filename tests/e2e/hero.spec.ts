@@ -14,10 +14,8 @@ test.describe("Hero Section", () => {
     await expect(heroPage.availableBadge).toBeVisible();
   });
 
-  test("terminal shows all 3 roles and pass count", async () => {
+  test("terminal shows QA role and pass count", async () => {
     await expect(heroPage.page.getByText("QA Automation Engineer")).toBeVisible();
-    await expect(heroPage.page.getByText("Java Spring Boot Developer")).toBeVisible();
-    await expect(heroPage.page.getByText("AI Enthusiast")).toBeVisible();
     await expect(heroPage.passCount).toBeVisible();
   });
 

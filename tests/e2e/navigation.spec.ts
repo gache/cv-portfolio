@@ -9,11 +9,12 @@ test.describe("Navigation", () => {
     await navbar.goto();
   });
 
-  test("all section links are visible", async () => {
+  test("all 6 section links are visible", async () => {
     await expect(navbar.aboutLink).toBeVisible();
     await expect(navbar.experienceLink).toBeVisible();
     await expect(navbar.skillsLink).toBeVisible();
     await expect(navbar.projetsLink).toBeVisible();
+    await expect(navbar.loisirs).toBeVisible();
     await expect(navbar.contactLink).toBeVisible();
   });
 

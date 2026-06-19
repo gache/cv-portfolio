@@ -23,10 +23,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.prose-justify, .prose-justify p {
-  text-align: justify;
-  hyphens: auto;
-}
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {

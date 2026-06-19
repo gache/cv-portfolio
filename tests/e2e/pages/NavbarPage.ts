@@ -7,6 +7,7 @@ export class NavbarPage {
   readonly experienceLink: Locator;
   readonly skillsLink: Locator;
   readonly projetsLink: Locator;
+  readonly loisirs: Locator;
   readonly contactLink: Locator;
   readonly downloadCVButton: Locator;
 
@@ -18,6 +19,7 @@ export class NavbarPage {
     this.experienceLink = nav.getByRole("link", { name: "Expérience" });
     this.skillsLink = nav.getByRole("link", { name: "Skills" });
     this.projetsLink = nav.getByRole("link", { name: "Projets" });
+    this.loisirs = nav.getByRole("link", { name: /Loisirs|Hobbies|Aficiones/i });
     this.contactLink = nav.getByRole("link", { name: "Contact" });
     this.downloadCVButton = nav.getByRole("link", { name: /Télécharger CV/i });
   }

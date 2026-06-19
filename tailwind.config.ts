@@ -14,7 +14,7 @@ const config: Config = {
         border: "#3F3F46",
         "text-primary": "#FAFAFA",
         "text-secondary": "#A1A1AA",
-        muted: "#71717A",
+        muted: "#A1A1AA",
         accent: "#818CF8",
         "accent-dark": "#4F46E5",
         pass: "#4ADE80",

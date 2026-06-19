@@ -10,6 +10,7 @@ export type T = {
     hobbies: string;
     contact: string;
     downloadCv: string;
+    backToTop: string;
   };
   hero: {
     available: string;
@@ -117,6 +118,7 @@ export const translations: Record<Lang, T> = {
       hobbies: "Loisirs",
       contact: "Contact",
       downloadCv: "Télécharger CV",
+      backToTop: "Retour en haut",
     },
     hero: {
       available: "Disponible pour de nouvelles missions",
@@ -257,6 +259,7 @@ export const translations: Record<Lang, T> = {
       hobbies: "Hobbies",
       contact: "Contact",
       downloadCv: "Download CV",
+      backToTop: "Back to top",
     },
     hero: {
       available: "Available for new opportunities",
@@ -397,6 +400,7 @@ export const translations: Record<Lang, T> = {
       hobbies: "Aficiones",
       contact: "Contacto",
       downloadCv: "Descargar CV",
+      backToTop: "Volver arriba",
     },
     hero: {
       available: "Disponible para nuevas oportunidades",

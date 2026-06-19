@@ -13,6 +13,11 @@ export default function SectionWrapper({ id, children, className = "" }: Props) 
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (mq.matches) {
+      setVisible(true);
+      return;
+    }
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {

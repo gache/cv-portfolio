@@ -74,7 +74,7 @@ export default function Hobbies() {
           {HOBBIES.map((hobby, i) => (
             <div
               key={hobby.fr.title}
-              className="rounded-xl border border-border/30 bg-surface/40 p-6 flex gap-4 hover:-translate-y-0.5 hover:border-accent/30 hover:shadow-[0_4px_20px_rgba(129,140,248,0.07)] transition-all duration-300"
+              className="rounded-xl border border-border/30 bg-surface/40 p-6 flex gap-4 cursor-pointer hover:-translate-y-0.5 hover:border-accent/30 hover:shadow-[0_4px_20px_rgba(129,140,248,0.07)] transition-all duration-300"
               style={{ animation: `slideUpFade 0.4s ease ${i * 80}ms both` }}
             >
               <div className="mt-0.5 flex-shrink-0">
@@ -85,7 +85,7 @@ export default function Hobbies() {
               </div>
               <div>
                 <h3 className="font-semibold text-text-primary mb-1 text-sm">{hobby[lang].title}</h3>
-                <p className="text-sm text-text-secondary leading-relaxed text-left sm:text-justify">{hobby[lang].desc}</p>
+                <p className="text-sm text-text-secondary leading-relaxed text-left">{hobby[lang].desc}</p>
               </div>
             </div>
           ))}

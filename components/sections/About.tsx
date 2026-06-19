@@ -32,10 +32,10 @@ export default function About() {
               {t.about.title}{" "}
               <span className="text-accent">{t.about.titleAccent}</span>
             </h2>
-            <p className="prose-justify text-text-secondary leading-relaxed mb-6">
+            <p className="text-left text-text-secondary leading-relaxed mb-6">
               <Highlight text={t.about.p1} words={ABOUT_KEYWORDS} />
             </p>
-            <p className="prose-justify text-text-secondary leading-relaxed mb-8">
+            <p className="text-left text-text-secondary leading-relaxed mb-8">
               <Highlight text={t.about.p2} words={ABOUT_KEYWORDS} />
             </p>
 
