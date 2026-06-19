@@ -14,13 +14,17 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto px-6 py-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
 
-          {/* Left — terminal identity */}
+          {/* Left — identity */}
           <div className="flex items-center gap-3">
-            <span className="font-mono text-xl font-bold text-accent">EF</span>
-            <span className="cursor-blink font-mono text-xl text-accent">_</span>
-            <span className="hidden sm:block w-px h-5 bg-border/60 mx-1" />
+            <a href="#" className="flex items-center gap-2.5" aria-label="Erick Franco — retour en haut">
+              <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-accent/10 border border-accent/40">
+                <span className="font-mono font-bold text-xs text-accent">EF</span>
+              </div>
+              <span className="font-mono text-base font-semibold text-accent">Erick Franco</span>
+            </a>
             <span className="hidden sm:flex items-center gap-1.5 text-xs font-mono text-muted">
-              <span className="w-1.5 h-1.5 rounded-full bg-pass animate-pulse" />
+              <span className="w-px h-4 bg-border/60" />
+              <span className="w-1.5 h-1.5 rounded-full bg-pass animate-pulse ml-2" />
               {t.footer.available}
             </span>
           </div>

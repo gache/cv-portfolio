@@ -12,6 +12,8 @@ import Certifications from "@/components/sections/Certifications";
 import TestimonialsServer from "@/components/sections/TestimonialsServer";
 import Hobbies from "@/components/sections/Hobbies";
 import Contact from "@/components/sections/Contact";
+import ScrollToTop from "@/components/ui/ScrollToTop";
+import LangUpdater from "@/components/ui/LangUpdater";
 
 export default function Home() {
   return (
@@ -22,6 +24,7 @@ export default function Home() {
       >
         Aller au contenu principal
       </a>
+      <LangUpdater />
       <Navbar />
       <main id="main-content" className="relative">
         <Hero />
@@ -36,6 +39,7 @@ export default function Home() {
         <Contact />
       </main>
       <Footer />
+      <ScrollToTop />
     </>
   );
 }
