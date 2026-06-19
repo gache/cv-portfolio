@@ -7,6 +7,7 @@ export type T = {
     skills: string;
     projects: string;
     testimonials: string;
+    hobbies: string;
     contact: string;
     downloadCv: string;
   };
@@ -113,6 +114,7 @@ export const translations: Record<Lang, T> = {
       skills: "Skills",
       projects: "Projets",
       testimonials: "Témoignages",
+      hobbies: "Loisirs",
       contact: "Contact",
       downloadCv: "Télécharger CV",
     },
@@ -252,6 +254,7 @@ export const translations: Record<Lang, T> = {
       skills: "Skills",
       projects: "Projects",
       testimonials: "Testimonials",
+      hobbies: "Hobbies",
       contact: "Contact",
       downloadCv: "Download CV",
     },
@@ -391,6 +394,7 @@ export const translations: Record<Lang, T> = {
       skills: "Skills",
       projects: "Proyectos",
       testimonials: "Testimonios",
+      hobbies: "Aficiones",
       contact: "Contacto",
       downloadCv: "Descargar CV",
     },

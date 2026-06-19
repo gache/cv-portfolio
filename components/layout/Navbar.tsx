@@ -18,7 +18,7 @@ export default function Navbar() {
     { href: "#experience", label: t.nav.experience },
     { href: "#skills", label: t.nav.skills },
     { href: "#projets", label: t.nav.projects },
-    { href: "#temoignages", label: t.nav.testimonials },
+    { href: "#hobbies", label: t.nav.hobbies },
     { href: "#contact", label: t.nav.contact },
   ];
 
@@ -41,7 +41,7 @@ export default function Navbar() {
   }, [open]);
 
   useEffect(() => {
-    const sectionIds = ["apropos", "experience", "skills", "projets", "temoignages", "contact"];
+    const sectionIds = ["apropos", "experience", "skills", "projets", "hobbies", "contact"];
     const onScroll = () => {
       const threshold = 80;
       let current = "";
@@ -69,12 +69,9 @@ export default function Navbar() {
         <a
           href="#"
           aria-label="Erick Franco — home"
-          className="relative flex items-center justify-center w-9 h-9 rounded-lg bg-surface border border-accent/30 hover:border-accent/50 transition-colors duration-200"
+          className="flex items-center justify-center w-10 h-10 rounded-xl bg-accent/10 border border-accent/40 hover:bg-accent/20 hover:border-accent/70 hover:shadow-[0_0_12px_rgba(129,140,248,0.3)] transition-all duration-200"
         >
-          <span className="font-mono font-bold text-sm text-accent tracking-tighter select-none">EF</span>
-          <span className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-bg border border-pass/60 flex items-center justify-center">
-            <Check size={8} className="text-pass" strokeWidth={3} />
-          </span>
+          <span className="font-mono font-bold text-sm text-accent select-none tracking-tight">EF</span>
         </a>
 
         {/* Desktop */}

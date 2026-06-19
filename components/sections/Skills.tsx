@@ -24,7 +24,7 @@ export default function Skills() {
   const desc = t.skills.categoryDesc[activeCategory];
 
   return (
-    <SectionWrapper id="skills" className="py-24">
+    <SectionWrapper id="skills" className="py-24 bg-surface/30">
       <div className="max-w-6xl mx-auto px-6">
         <p className="text-xs font-mono text-accent mb-3 tracking-widest uppercase text-center">{t.skills.eyebrow}</p>
         <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">{t.skills.title}</h2>

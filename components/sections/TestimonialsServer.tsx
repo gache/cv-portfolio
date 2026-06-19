@@ -25,5 +25,5 @@ export default async function TestimonialsServer() {
     }
   }
 
-  return <TestimonialsClient initialTestimonials={all} />;
+  return <TestimonialsClient initialTestimonials={all} isEmpty={all.length === 0} />;
 }

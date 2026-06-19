@@ -1,4 +1,4 @@
-export const revalidate = 3600;
+export const revalidate = 60;
 
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -10,6 +10,7 @@ import Skills from "@/components/sections/Skills";
 import Projects from "@/components/sections/Projects";
 import Certifications from "@/components/sections/Certifications";
 import TestimonialsServer from "@/components/sections/TestimonialsServer";
+import Hobbies from "@/components/sections/Hobbies";
 import Contact from "@/components/sections/Contact";
 
 export default function Home() {
@@ -30,6 +31,7 @@ export default function Home() {
         <Skills />
         <Certifications />
         <Projects />
+        <Hobbies />
         <TestimonialsServer />
         <Contact />
       </main>

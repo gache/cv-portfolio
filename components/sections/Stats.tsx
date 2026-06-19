@@ -5,7 +5,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 
 const STATS = [
   { value: 6,  suffix: "",  key: "missions" as const },
-  { value: 17, suffix: "+", key: "tools"    as const },
+  { value: 20, suffix: "+", key: "tools"    as const },
   { value: 3,  suffix: "",  key: "languages" as const },
 ];
 

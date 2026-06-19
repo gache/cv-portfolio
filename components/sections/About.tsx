@@ -19,7 +19,7 @@ export default function About() {
   }));
 
   return (
-    <SectionWrapper id="apropos" className="py-24">
+    <SectionWrapper id="apropos" className="py-24 bg-surface/30">
       <div className="max-w-6xl mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-16 items-start">
           {/* Left */}

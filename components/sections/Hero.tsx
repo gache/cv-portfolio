@@ -1,8 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { personal } from "@/data/cv";
 import { ArrowDown, Download, Mail } from "lucide-react";
+import { GithubIcon, LinkedinIcon } from "@/components/ui/Icons";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Highlight } from "@/components/ui/Highlight";
 
@@ -10,11 +12,41 @@ const HERO_KEYWORDS = ["IBM", "QA Automation", "Claude 101", "Anthropic", "Playw
 
 const LINE_COLORS = ["text-muted", "text-pass", "text-pass", "text-pass", "", "text-accent"];
 
+function PhotoBlock({
+  photoError,
+  setPhotoError,
+}: {
+  photoError: boolean;
+  setPhotoError: (v: boolean) => void;
+}) {
+  return (
+    <div className="relative inline-block flex-shrink-0">
+      <div className="relative w-28 h-28 sm:w-36 sm:h-36 md:w-56 md:h-56 rounded-full overflow-hidden border-2 border-accent/40 shadow-lg bg-surface">
+        {!photoError ? (
+          <Image
+            src="/images/profile.jpg"
+            alt="Erick Franco"
+            fill
+            className="object-cover object-top"
+            onError={() => setPhotoError(true)}
+            priority
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center bg-accent/10">
+            <span className="font-mono font-bold text-2xl text-accent">EF</span>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 export default function Hero() {
   const { t } = useLanguage();
   const [typedLines, setTypedLines] = useState<(string | null)[]>(Array(6).fill(null));
   const [animDone, setAnimDone] = useState(false);
   const [titleIndex, setTitleIndex] = useState(0);
+  const [photoError, setPhotoError] = useState(false);
 
   useEffect(() => {
     setTypedLines(Array(6).fill(null));
@@ -54,7 +86,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center grid-bg overflow-hidden">
+    <section className="relative min-h-dvh flex items-center grid-bg overflow-hidden">
       {/* Gradient orb */}
       <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-96 h-96 bg-accent/10 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute top-1/3 right-1/4 w-64 h-64 bg-accent-dark/10 rounded-full blur-3xl pointer-events-none" />
@@ -68,11 +100,14 @@ export default function Hero() {
               {t.hero.available}
             </div>
 
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-4">
-              <span className="text-text-primary">Erick</span>
-              <br />
-              <span className="text-accent">Franco</span>
-            </h1>
+            {/* Photo inline next to name */}
+            <div className="flex flex-wrap items-center gap-4 md:gap-5 mb-4">
+              <PhotoBlock photoError={photoError} setPhotoError={setPhotoError} />
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-none">
+                <span className="text-text-primary block">Erick</span>
+                <span className="text-accent block">Franco</span>
+              </h1>
+            </div>
 
             <div className="h-8 mb-6 overflow-hidden">
               <p
@@ -99,7 +134,7 @@ export default function Hero() {
               </a>
               <a
                 href="#contact"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md text-sm font-medium border border-border hover:border-accent/50 hover:text-accent transition-all duration-200"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md text-sm font-medium border border-accent/30 text-text-primary hover:border-accent/60 hover:text-accent transition-all duration-200"
               >
                 <Mail size={16} />
                 {t.hero.contactMe}
@@ -107,10 +142,41 @@ export default function Hero() {
               <a
                 href="#experience"
                 aria-label={t.hero.seeExperience}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md text-sm font-medium border border-border hover:border-accent/50 hover:text-accent text-text-secondary transition-all duration-200"
+                className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-accent transition-colors duration-200"
               >
                 {t.hero.seeExperience}
-                <ArrowDown size={16} />
+                <ArrowDown size={14} />
+              </a>
+            </div>
+
+            {/* Contact links */}
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-2 mt-8">
+              <a
+                href={`mailto:${personal.email}`}
+                aria-label={personal.email}
+                className="inline-flex items-center gap-1.5 text-xs text-muted hover:text-accent transition-colors duration-200 font-mono"
+              >
+                <Mail size={12} />
+                <span className="hidden sm:inline">{personal.email}</span>
+                <span className="sm:hidden">Email</span>
+              </a>
+              <a
+                href={personal.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-xs text-muted hover:text-accent transition-colors duration-200 font-mono"
+              >
+                <LinkedinIcon size={12} />
+                LinkedIn
+              </a>
+              <a
+                href={personal.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-xs text-muted hover:text-accent transition-colors duration-200 font-mono"
+              >
+                <GithubIcon size={12} />
+                GitHub
               </a>
             </div>
           </div>

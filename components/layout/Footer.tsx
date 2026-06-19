@@ -67,7 +67,7 @@ export default function Footer() {
 
       {/* Copyright bar */}
       <div className="border-t border-border/20 py-4">
-        <p className="text-center text-xs font-mono text-muted/60">
+        <p className="text-center text-xs font-mono text-muted">
           © {new Date().getFullYear()} Erick Franco Delgado — {t.footer.rights}
         </p>
       </div>

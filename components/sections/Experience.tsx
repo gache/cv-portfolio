@@ -27,7 +27,7 @@ const employerMeta: Record<string, { period: string; label: string }> = {
   IBM:             { period: "2021 — Présent", label: "ESN · Consultant" },
   "Auchan Retail": { period: "2019",           label: "Mission directe · Dev" },
   Modis:           { period: "2017 — 2020",    label: "ESN · Support IT" },
-  TEJE:            { period: "2012 — 2017",    label: "Association" },
+  TEJE:            { period: "2015 — 2017",    label: "Association" },
   Oidhaco:         { period: "2015",           label: "ONG · Mission internationale" },
 };
 

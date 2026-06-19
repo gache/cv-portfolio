@@ -241,9 +241,34 @@ function TestimonialModal({ onClose }: { onClose: () => void }) {
   );
 }
 
-export default function Testimonials({ initialTestimonials }: { initialTestimonials: Testimonial[] }) {
+export default function Testimonials({ initialTestimonials, isEmpty = false }: { initialTestimonials: Testimonial[]; isEmpty?: boolean }) {
   const { t } = useLanguage();
   const [modalOpen, setModalOpen] = useState(false);
+
+  // When no testimonials: show a minimal discreet CTA so users can still submit
+  if (isEmpty) {
+    return (
+      <>
+        <section id="temoignages" className="py-10 border-t border-border/20">
+          <div className="max-w-6xl mx-auto px-6 flex flex-col items-center gap-4 text-center">
+            <p className="inline-flex items-center gap-1.5 text-xs font-mono text-accent tracking-widest uppercase">
+              <MessageSquare size={12} />
+              {t.testimonials.eyebrow}
+            </p>
+            <h2 className="text-3xl md:text-4xl font-bold text-text-primary">{t.testimonials.ctaQuestion}</h2>
+            <button
+              onClick={() => setModalOpen(true)}
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md text-sm font-medium border border-accent/40 text-accent hover:bg-accent/10 transition-all duration-200"
+            >
+              <MessageSquare size={14} />
+              {t.testimonials.cta}
+            </button>
+          </div>
+        </section>
+        {modalOpen && <TestimonialModal onClose={() => setModalOpen(false)} />}
+      </>
+    );
+  }
 
   return (
     <>
@@ -260,24 +285,15 @@ export default function Testimonials({ initialTestimonials }: { initialTestimoni
             {t.testimonials.subtitle}
           </p>
 
-          {initialTestimonials.length > 0 ? (
-            <div className="grid md:grid-cols-3 gap-6 mb-12">
-              {initialTestimonials.map((testimonial, i) => (
-                <TestimonialCard
-                  key={`${testimonial.name}-${i}`}
-                  testimonial={testimonial}
-                  index={i}
-                />
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-12 mb-12">
-              <div className="w-14 h-14 rounded-full bg-accent/5 border border-border/30 flex items-center justify-center mx-auto mb-4">
-                <MessageSquare size={20} className="text-accent/30" />
-              </div>
-              <p className="text-sm text-muted">{t.testimonials.emptyState}</p>
-            </div>
-          )}
+          <div className="grid md:grid-cols-3 gap-6 mb-12">
+            {initialTestimonials.map((testimonial, i) => (
+              <TestimonialCard
+                key={`${testimonial.name}-${i}`}
+                testimonial={testimonial}
+                index={i}
+              />
+            ))}
+          </div>
 
           <div className="text-center">
             <p className="text-sm text-text-secondary mb-4">{t.testimonials.ctaQuestion}</p>

@@ -2,8 +2,8 @@ export const personal = {
   name: "Erick Franco",
   titles: [
     "QA Automation Engineer",
-    "Java Spring Boot Developer",
     "AI Enthusiast",
+    "IBM Consultant",
   ],
   description:
     "Plus de 10 ans d'expérience en IT. Spécialisé en automatisation de tests, Java, Spring Boot, APIs REST, Playwright, IA Générative et développement Full Stack.",
@@ -183,7 +183,7 @@ export const experiences = [
     employer: "TEJE",
     role: "Trésorier",
     company: "TEJE",
-    period: "Avril 2012 — 2017",
+    period: "Septembre 2015 — 2017",
     type: "Asso",
     description:
       "Pilotage de projets associatifs et de solidarité internationale : gestion budgétaire, coordination d'équipes de bénévoles et mise en œuvre d'actions collectives de sensibilisation (événements culturels, ateliers pédagogiques, débats et animations participatives).",
