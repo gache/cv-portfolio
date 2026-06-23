@@ -5,7 +5,8 @@ import { collection, getDocs, deleteDoc, doc, orderBy, query } from "firebase/fi
 import { db } from "@/lib/firebase";
 import AdminShell from "@/components/admin/AdminShell";
 import { Plus, Trash2, Pencil, AlertTriangle, ChevronDown } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Toast, useToast } from "@/components/admin/Toast";
 
 interface Experience {
   id: string;
@@ -54,7 +55,15 @@ export default function ExperiencesPage() {
   const [confirmItem, setConfirmItem] = useState<Experience | null>(null);
   const [deleting, setDeleting] = useState(false);
   const [collapsed, setCollapsed] = useState<Record<string, boolean>>({});
+  const { toast, show: showToast, hide: hideToast } = useToast();
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const s = searchParams.get("success");
+    if (s === "created") showToast("Expérience créée avec succès.", "success");
+    else if (s === "updated") showToast("Expérience mise à jour avec succès.", "info");
+  }, [searchParams]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const load = async () => {
     const q = query(collection(db, "experiences"), orderBy("order", "asc"));
@@ -73,6 +82,7 @@ export default function ExperiencesPage() {
     setItems(prev => prev.filter(i => i.id !== confirmItem.id));
     setConfirmItem(null);
     setDeleting(false);
+    showToast("Expérience supprimée.", "warning");
   };
 
   // Group by employer preserving order
@@ -85,6 +95,7 @@ export default function ExperiencesPage() {
 
   return (
     <>
+      {toast && <Toast message={toast.message} type={toast.type} onClose={hideToast} />}
       {confirmItem && <DeleteModal item={confirmItem} onConfirm={remove} onCancel={() => setConfirmItem(null)} deleting={deleting} />}
       <AdminShell
         title="Expériences"

@@ -6,6 +6,7 @@ import { doc, getDoc, setDoc, addDoc, collection, serverTimestamp } from "fireba
 import { db } from "@/lib/firebase";
 import AdminShell from "@/components/admin/AdminShell";
 import { Save } from "lucide-react";
+import { Toast, useToast } from "@/components/admin/Toast";
 
 const EMPTY = { role: "", employer: "", company: "", periodStart: "", periodEnd: "", ongoing: true, type: "", description: "", responsibilities: "", tech: "", order: -Date.now(), prominent: false, defaultOpen: false };
 const REQUIRED = ["role", "employer", "type", "periodStart"] as const;
@@ -79,7 +80,7 @@ export default function ExperienceEditPage() {
   const [submitAttempted, setSubmitAttempted] = useState(false);
   const [loading, setLoading] = useState(!isNew);
   const [saving, setSaving] = useState(false);
-  const [saveError, setSaveError] = useState("");
+  const { toast, show: showToast, hide: hideToast } = useToast();
 
   useEffect(() => {
     if (isNew) return;
@@ -127,10 +128,10 @@ export default function ExperienceEditPage() {
       else await setDoc(doc(db, "experiences", id), data, { merge: true });
       // Invalidate ISR cache so public page reflects changes immediately
       await fetch("/api/revalidate", { method: "POST" });
-      router.push("/admin/experiences");
+      router.push(`/admin/experiences?success=${isNew ? "created" : "updated"}`);
     } catch (e) {
       setSaving(false);
-      setSaveError(e instanceof Error ? e.message : "Erreur lors de la sauvegarde.");
+      showToast(e instanceof Error ? e.message : "Erreur lors de la sauvegarde.", "error");
     }
   };
 
@@ -178,12 +179,8 @@ export default function ExperienceEditPage() {
         </button>
       }
     >
+      {toast && <Toast message={toast.message} type={toast.type} onClose={hideToast} />}
       <div className="space-y-4 max-w-2xl">
-        {saveError && (
-          <div role="alert" className="rounded-lg border border-red-400/30 bg-red-400/5 px-4 py-3">
-            <p className="text-xs font-medium text-red-400">{saveError}</p>
-          </div>
-        )}
         {submitAttempted && hasErrors && (
           <div role="alert" aria-live="assertive" className="rounded-lg border border-red-400/30 bg-red-400/5 px-4 py-3">
             <p className="text-xs font-medium text-red-400 mb-1">Corrigez les erreurs avant de sauvegarder :</p>
