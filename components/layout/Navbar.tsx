@@ -18,7 +18,7 @@ export default function Navbar() {
     { href: "#experience", label: t.nav.experience },
     { href: "#skills", label: t.nav.skills },
     { href: "#projets", label: t.nav.projects },
-    { href: "#hobbies", label: t.nav.hobbies },
+    { href: "#temoignages", label: t.nav.testimonials },
     { href: "#contact", label: t.nav.contact },
   ];
 
@@ -41,7 +41,7 @@ export default function Navbar() {
   }, [open]);
 
   useEffect(() => {
-    const sectionIds = ["apropos", "experience", "skills", "projets", "hobbies", "contact"];
+    const sectionIds = ["apropos", "experience", "skills", "projets", "temoignages", "contact"];
     const onScroll = () => {
       const threshold = 80;
       let current = "";

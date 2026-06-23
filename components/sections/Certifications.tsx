@@ -1,8 +1,10 @@
-import { certifications } from "@/data/cv";
+import { certifications as fallback } from "@/data/cv";
 import SectionWrapper from "@/components/ui/SectionWrapper";
 import { Award } from "lucide-react";
 
-export default function Certifications() {
+type Cert = { name: string; issuer: string; year: string; url?: string };
+
+export default function Certifications({ certifications = fallback }: { certifications?: Cert[] }) {
   return (
     <SectionWrapper id="certifications" className="py-16 border-y border-border/50">
       <div className="max-w-6xl mx-auto px-6">

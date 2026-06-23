@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { experiences } from "@/data/cv";
+import { useState, useMemo } from "react";
+import { experiences as fallback } from "@/data/cv";
 import SectionWrapper from "@/components/ui/SectionWrapper";
 import { ChevronDown, ChevronRight, ShieldCheck, Code2, Settings, Monitor, Users, Briefcase } from "lucide-react"; // ChevronRight used in mission expand
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -23,19 +23,38 @@ const typeStyle: Record<string, { pill: string; dot: string; icon: React.Element
   Asso:  { pill: "bg-rose-400/10 text-rose-400 border-rose-400/30",       dot: "bg-rose-400",   icon: Users },
 };
 
-const employerMeta: Record<string, { period: string; label: string }> = {
-  IBM:             { period: "2021 — Présent", label: "ESN · Consultant" },
-  "Auchan Retail": { period: "2019",           label: "Mission directe · Dev" },
-  Modis:           { period: "2017 — 2020",    label: "ESN · Support IT" },
-  TEJE:            { period: "2015 — 2017",    label: "Association" },
-  Oidhaco:         { period: "2015",           label: "ONG · Mission internationale" },
-};
+// Fix 3: single source of truth for "currently employed" detection
+const IS_PRESENT_RE = /présent|present|actual|actuel/i;
 
-const TECH_EMPLOYERS = ["IBM", "Auchan Retail", "Modis"];
-const OTHER_EMPLOYERS = ["TEJE", "Oidhaco"];
+type ExpItem = (typeof fallback)[number] & { order?: number };
+type ExpList = ExpItem[];
+type EmployerMetaEntry = { period: string; label: string; sortKey: number };
 
-function groupByEmployer(exps: typeof experiences) {
-  const map = new Map<string, typeof experiences>();
+function buildEmployerMeta(
+  allGroups: Map<string, ExpList>
+): Record<string, EmployerMetaEntry> {
+  const map: Record<string, EmployerMetaEntry> = {};
+  allGroups.forEach((list, employer) => {
+    const periods = list.map(e => e.period ?? "");
+    const years = periods.flatMap(p => p.match(/\d{4}/g) ?? []).map(Number).filter(Boolean);
+    const minYear = years.length ? Math.min(...years) : null;
+    const maxYear = years.length ? Math.max(...years) : 0;
+    const hasPresent = periods.some(p => IS_PRESENT_RE.test(p));
+    const periodStr = minYear
+      ? hasPresent ? `${minYear} — Présent` : years.length > 1 ? `${minYear} — ${maxYear}` : `${minYear}`
+      : "";
+    // Fix 4: most-recent mission = lowest order value
+    const recent = list.reduce((a, b) => ((a.order ?? 0) <= (b.order ?? 0) ? a : b));
+    const label = [recent.company, recent.type].filter(Boolean).join(" · ");
+    const sortKey = (hasPresent ? 100000 : 0) + maxYear;
+    map[employer] = { period: periodStr, label, sortKey };
+  });
+  return map;
+}
+
+
+function groupByEmployer(exps: ExpList) {
+  const map = new Map<string, ExpList>();
   for (const e of exps) {
     const key = e.employer ?? "Autre";
     if (!map.has(key)) map.set(key, []);
@@ -51,19 +70,21 @@ function EmployerCard({
   setOpenExp,
   defaultOpen = false,
   prominent = false,
+  employerMeta,
 }: {
   employer: string;
-  exps: typeof experiences;
+  exps: ExpList;
   openExp: number | null;
   setOpenExp: (id: number | null) => void;
   defaultOpen?: boolean;
   prominent?: boolean;
+  employerMeta: Record<string, EmployerMetaEntry>;
 }) {
   const [collapsed, setCollapsed] = useState(!defaultOpen);
   const { lang } = useLanguage();
   const currentLabel = lang === "en" ? "Current" : lang === "es" ? "Actual" : "Actuel";
   const meta = employerMeta[employer];
-  const isCurrent = employer === "IBM";
+  const isCurrent = IS_PRESENT_RE.test(meta?.period ?? "");
 
   const borderClass = prominent
     ? "border-accent/60 shadow-[0_0_20px_rgba(129,140,248,0.12)] hover:shadow-[0_0_30px_rgba(129,140,248,0.2)]"
@@ -174,27 +195,36 @@ function EmployerCard({
   );
 }
 
-export default function Experience() {
+export default function Experience({ experiences = fallback }: { experiences?: typeof fallback }) {
   const { t } = useLanguage();
 
-  const translatedExps = experiences.map((exp) => {
-    const tr = t.experience.items.find((item) => item.id === exp.id);
+  const translatedExps = useMemo(() => experiences.map((exp) => {
+    // Match by role string only — never by numeric id (sequential ids from Firestore collide with cv.ts ids)
+    const tr = t.experience.items.find(
+      (item) => item.role?.toLowerCase() === exp.role?.toLowerCase()
+    );
     return {
       ...exp,
-      role: tr?.role ?? exp.role,
-      description: tr?.description ?? exp.description,
-      responsibilities: tr?.responsibilities ?? exp.responsibilities,
+      // Only apply translated role if it matches the same base role (avoid cross-entry pollution)
+      role: tr ? (tr.role ?? exp.role) : exp.role,
+      // Firestore data takes priority — only fall back to cv.ts translation if field is empty
+      description: exp.description || tr?.description || "",
+      responsibilities: exp.responsibilities?.length ? exp.responsibilities : (tr?.responsibilities ?? []),
     };
-  });
+  }), [experiences, t]);
 
-  const allGroups = groupByEmployer(translatedExps);
-  // Fix #4: separate state per layout to avoid invisible duplicate interactions
+  const allGroups = useMemo(() => groupByEmployer(translatedExps), [translatedExps]);
+  const employerMeta = useMemo(() => buildEmployerMeta(allGroups), [allGroups]);
   const [openExpDesktop, setOpenExpDesktop] = useState<number | null>(null);
   const [openExpMobile, setOpenExpMobile] = useState<number | null>(null);
 
-  const allGroupsList = [...TECH_EMPLOYERS, ...OTHER_EMPLOYERS]
-    .map((e) => [e, allGroups.get(e)] as [string, typeof experiences])
-    .filter(([, exps]) => exps !== undefined);
+  // Fix 5: sortKey comes directly from buildEmployerMeta — no re-parsing of strings
+  const allGroupsList = useMemo(() =>
+    [...allGroups.entries()]
+      .sort((a, b) => (employerMeta[b[0]]?.sortKey ?? 0) - (employerMeta[a[0]]?.sortKey ?? 0))
+      .map(([employer, exps]) => [employer, exps] as [string, ExpList]),
+    [allGroups, employerMeta]
+  );
 
   return (
     <SectionWrapper id="experience" className="py-24 bg-surface/50">
@@ -215,13 +245,13 @@ export default function Experience() {
           <div className="space-y-10">
             {allGroupsList.map(([employer, exps], i) => {
               const isLeft = i % 2 === 0;
-              const isIBM = employer === "IBM";
+              const isCurrent = IS_PRESENT_RE.test(employerMeta[employer]?.period ?? "");
 
               return (
                 <div key={employer} className="relative grid grid-cols-2 gap-10 items-start">
                   <div className="absolute left-1/2 top-5 -translate-x-1/2 z-10">
                     <div className={`rounded-full border-2 border-bg ${
-                      isIBM
+                      isCurrent
                         ? "w-4 h-4 bg-accent shadow-[0_0_16px_rgba(129,140,248,0.7)]"
                         : "w-3 h-3 bg-muted/60"
                     }`} />
@@ -234,8 +264,9 @@ export default function Experience() {
                       exps={exps}
                       openExp={openExpDesktop}
                       setOpenExp={setOpenExpDesktop}
-                      defaultOpen={isIBM}
-                      prominent={isIBM}
+                      defaultOpen={isCurrent}
+                      prominent={isCurrent}
+                      employerMeta={employerMeta}
                     />
                   ) : <div />}
                   {!isLeft ? (
@@ -244,8 +275,9 @@ export default function Experience() {
                       exps={exps}
                       openExp={openExpDesktop}
                       setOpenExp={setOpenExpDesktop}
-                      defaultOpen={false}
-                      prominent={false}
+                      defaultOpen={isCurrent}
+                      prominent={isCurrent}
+                      employerMeta={employerMeta}
                     />
                   ) : <div />}
                 </div>
@@ -257,13 +289,13 @@ export default function Experience() {
         {/* Mobile: single column */}
         <div className="md:hidden space-y-2">
           {allGroupsList.map(([employer, exps], i) => {
-            const isIBM = employer === "IBM";
+            const isCurrent = IS_PRESENT_RE.test(employerMeta[employer]?.period ?? "");
             const isLast = i === allGroupsList.length - 1;
             return (
               <div key={employer} className="flex gap-3">
                 {/* Timeline spine */}
                 <div className="flex flex-col items-center flex-shrink-0 w-4">
-                  <div className={`rounded-full flex-shrink-0 mt-4 ${isIBM ? "w-3.5 h-3.5 bg-accent shadow-[0_0_10px_rgba(129,140,248,0.6)]" : "w-2.5 h-2.5 bg-muted/60"}`} />
+                  <div className={`rounded-full flex-shrink-0 mt-4 ${isCurrent ? "w-3.5 h-3.5 bg-accent shadow-[0_0_10px_rgba(129,140,248,0.6)]" : "w-2.5 h-2.5 bg-muted/60"}`} />
                   {!isLast && <div className="flex-1 w-px bg-gradient-to-b from-accent/40 to-transparent mt-1" />}
                 </div>
                 {/* Card */}
@@ -273,8 +305,9 @@ export default function Experience() {
                     exps={exps}
                     openExp={openExpMobile}
                     setOpenExp={setOpenExpMobile}
-                    defaultOpen={isIBM}
-                    prominent={isIBM}
+                    defaultOpen={isCurrent}
+                    prominent={isCurrent}
+                    employerMeta={employerMeta}
                   />
                 </div>
               </div>

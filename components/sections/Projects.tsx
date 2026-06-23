@@ -1,12 +1,12 @@
 "use client";
 
 import { useLanguage } from "@/contexts/LanguageContext";
-import { projects } from "@/data/cv";
+import { projects as fallback } from "@/data/cv";
 import SectionWrapper from "@/components/ui/SectionWrapper";
 import { ExternalLink, FolderOpen } from "lucide-react";
 import { GithubIcon } from "@/components/ui/Icons";
 
-export default function Projects() {
+export default function Projects({ projects = fallback }: { projects?: typeof fallback }) {
   const { t } = useLanguage();
 
   const translatedProjects = projects.map((p) => {

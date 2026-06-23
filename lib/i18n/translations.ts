@@ -6,6 +6,7 @@ export type T = {
     experience: string;
     skills: string;
     projects: string;
+    certifications: string;
     testimonials: string;
     hobbies: string;
     contact: string;
@@ -114,6 +115,7 @@ export const translations: Record<Lang, T> = {
       experience: "Expérience",
       skills: "Skills",
       projects: "Projets",
+      certifications: "Certifications",
       testimonials: "Témoignages",
       hobbies: "Loisirs",
       contact: "Contact",
@@ -255,6 +257,7 @@ export const translations: Record<Lang, T> = {
       experience: "Experience",
       skills: "Skills",
       projects: "Projects",
+      certifications: "Certifications",
       testimonials: "Testimonials",
       hobbies: "Hobbies",
       contact: "Contact",
@@ -396,6 +399,7 @@ export const translations: Record<Lang, T> = {
       experience: "Experiencia",
       skills: "Skills",
       projects: "Proyectos",
+      certifications: "Certificaciones",
       testimonials: "Testimonios",
       hobbies: "Aficiones",
       contact: "Contacto",

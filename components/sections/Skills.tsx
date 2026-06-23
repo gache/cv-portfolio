@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { ShieldCheck, Server, Monitor, GitBranch, Brain } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { skills } from "@/data/cv";
+import { skills as fallback } from "@/data/cv";
 import SectionWrapper from "@/components/ui/SectionWrapper";
 
 const categoryOrder = ["Test Automation", "Backend", "Frontend", "DevOps & Outils", "Intelligence Artificielle"];
@@ -16,7 +16,7 @@ const categoryIcons: Record<string, React.ElementType> = {
   "Intelligence Artificielle": Brain,
 };
 
-export default function Skills() {
+export default function Skills({ skills = fallback }: { skills?: typeof fallback }) {
   const [activeCategory, setActiveCategory] = useState("Test Automation");
   const { t } = useLanguage();
 

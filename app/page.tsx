@@ -14,26 +14,30 @@ import Hobbies from "@/components/sections/Hobbies";
 import Contact from "@/components/sections/Contact";
 import ScrollToTop from "@/components/ui/ScrollToTop";
 import LangUpdater from "@/components/ui/LangUpdater";
+import SkipLink from "@/components/ui/SkipLink";
+import { getExperiences, getProjects, getSkills, getCertifications } from "@/lib/getPortfolioData";
 
-export default function Home() {
+export default async function Home() {
+  const [experiencesData, projectsData, skillsData, certificationsData] = await Promise.all([
+    getExperiences(),
+    getProjects(),
+    getSkills(),
+    getCertifications(),
+  ]);
+
   return (
     <>
-      <a
-        href="#main-content"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2 focus:rounded-md focus:bg-accent focus:text-bg focus:font-medium focus:text-sm focus:shadow-lg"
-      >
-        Aller au contenu principal
-      </a>
+      <SkipLink />
       <LangUpdater />
       <Navbar />
       <main id="main-content" className="relative">
         <Hero />
         <Stats />
         <About />
-        <Experience />
-        <Skills />
-        <Certifications />
-        <Projects />
+        <Experience experiences={experiencesData} />
+        <Skills skills={skillsData} />
+        <Certifications certifications={certificationsData} />
+        <Projects projects={projectsData} />
         <Hobbies />
         <TestimonialsServer />
         <Contact />

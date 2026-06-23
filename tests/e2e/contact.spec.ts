@@ -52,4 +52,36 @@ test.describe("Contact Form", () => {
       "https://www.linkedin.com/in/erick-franco-delgado-394a6228/"
     );
   });
+
+  test("error shown for invalid email format", async ({ page }) => {
+    await contactPage.fillForm({ name: "Test", email: "notemail", company: "", message: "Hello" });
+    await contactPage.emailInput.blur();
+    const alert = page.locator("[role='alert']").first();
+    await expect(alert).toBeVisible();
+  });
+
+  test("error clears when valid email entered", async ({ page }) => {
+    await contactPage.fillForm({ name: "Test", email: "bad", company: "", message: "Hello" });
+    await contactPage.emailInput.blur();
+    await contactPage.emailInput.fill("valid@email.com");
+    await contactPage.emailInput.blur();
+    const alert = page.locator("[role='alert']").first();
+    await expect(alert).not.toBeVisible();
+  });
+
+  test("character count updates on message input", async ({ page }) => {
+    await contactPage.messageInput.fill("Hello world");
+    // Char counter should appear
+    const counter = page.locator("#contact [class*='text-xs'][class*='text-muted']").last();
+    await expect(counter).toBeVisible();
+  });
+
+  test("social links have rel=noopener", async ({ page }) => {
+    const externalLinks = page.locator("#contact a[target='_blank']");
+    const count = await externalLinks.count();
+    for (let i = 0; i < count; i++) {
+      const rel = await externalLinks.nth(i).getAttribute("rel");
+      expect(rel).toContain("noopener");
+    }
+  });
 });

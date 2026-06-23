@@ -142,7 +142,7 @@ export default function Hero() {
               <a
                 href="#experience"
                 aria-label={t.hero.seeExperience}
-                className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-accent transition-colors duration-200"
+                className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-accent transition-colors duration-200 min-h-[44px]"
               >
                 {t.hero.seeExperience}
                 <ArrowDown size={14} />

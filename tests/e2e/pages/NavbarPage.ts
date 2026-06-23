@@ -15,10 +15,10 @@ export class NavbarPage {
     this.page = page;
     const nav = page.getByRole("navigation");
     this.logo = nav.getByRole("link", { name: /EF/i });
-    this.aboutLink = nav.getByRole("link", { name: "À propos" });
-    this.experienceLink = nav.getByRole("link", { name: "Expérience" });
+    this.aboutLink = nav.getByRole("link", { name: /À propos|About|Acerca/i });
+    this.experienceLink = nav.getByRole("link", { name: /Expérience|Experience|Experiencia/i });
     this.skillsLink = nav.getByRole("link", { name: "Skills" });
-    this.projetsLink = nav.getByRole("link", { name: "Projets" });
+    this.projetsLink = nav.getByRole("link", { name: /Projets|Projects|Proyectos/i });
     this.loisirs = nav.getByRole("link", { name: /Loisirs|Hobbies|Aficiones/i });
     this.contactLink = nav.getByRole("link", { name: "Contact" });
     this.downloadCVButton = nav.getByRole("link", { name: /Télécharger CV/i });

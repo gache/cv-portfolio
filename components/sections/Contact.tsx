@@ -228,7 +228,7 @@ export default function Contact() {
             <div className="pt-6 border-t border-border/50 space-y-3">
               <a
                 href={`mailto:${personal.email}`}
-                className="flex items-center gap-3 text-sm text-text-secondary hover:text-text-primary transition-colors group"
+                className="flex items-center gap-3 text-sm text-text-secondary hover:text-text-primary transition-colors group min-h-[44px]"
               >
                 <span className="w-8 h-8 rounded-lg bg-surface border border-border/50 flex items-center justify-center group-hover:border-accent/40 transition-colors">
                   <Mail size={14} className="text-accent" />
@@ -239,7 +239,7 @@ export default function Contact() {
                 href={personal.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 text-sm text-text-secondary hover:text-text-primary transition-colors group"
+                className="flex items-center gap-3 text-sm text-text-secondary hover:text-text-primary transition-colors group min-h-[44px]"
               >
                 <span className="w-8 h-8 rounded-lg bg-surface border border-border/50 flex items-center justify-center group-hover:border-accent/40 transition-colors">
                   <LinkedinIcon size={14} className="text-accent" />
@@ -250,7 +250,7 @@ export default function Contact() {
                 href={personal.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 text-sm text-text-secondary hover:text-text-primary transition-colors group"
+                className="flex items-center gap-3 text-sm text-text-secondary hover:text-text-primary transition-colors group min-h-[44px]"
               >
                 <span className="w-8 h-8 rounded-lg bg-surface border border-border/50 flex items-center justify-center group-hover:border-accent/40 transition-colors">
                   <GithubIcon size={14} className="text-accent" />
